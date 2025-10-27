@@ -1,0 +1,1277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Campus Connect</title>
+<style>
+:root{
+  --bg:#0f172a; 
+  --card:#111827; 
+  --muted:#1f2937; 
+  --accent:#22d3ee;
+  --accent-2:#a78bfa; 
+  --text:#e5e7eb; 
+  --text-dim:#9ca3af;
+  --success:#34d399; 
+  --warn:#f59e0b; 
+  --danger:#f87171;
+  --radius:18px; 
+  --shadow:0 10px 25px rgba(0,0,0,.4);
+  --transition:0.25s ease-in-out;
+}
+*{box-sizing:border-box;}
+html,body{
+  margin:0;
+  height:100%;
+  font-family: 'Inter', system-ui, -apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Noto Sans,sans-serif;
+  background:linear-gradient(180deg,#0b1224,#0f172a);
+  color:var(--text);
+  scroll-behavior: smooth;
+}
+.container{max-width:1100px;margin:0 auto;padding:0 0 80px 0;}
+header{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:16px;}
+.brand{display:flex;gap:12px;align-items:center;}
+.title{font-weight:900;letter-spacing:.3px;font-size:22px;}
+.lead{font-size:14px;color:var(--text-dim);}
+.pill{font-size:12px;color:#0b1020;background:linear-gradient(135deg,var(--accent),var(--accent-2));padding:6px 12px;border-radius:999px;font-weight:700;box-shadow:0 2px 10px rgba(0,0,0,.25);}
+.card{
+  background:linear-gradient(180deg,#0b1224,#0e162c 60%,#0f1a34);
+  border:1px solid rgba(255,255,255,.08);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+  margin:16px 0;
+  padding:16px;
+  transition:var(--transition);
+}
+.card:hover{transform:translateY(-3px) scale(1.01);}
+.card h3{margin:0 0 12px 0;font-size:20px;}
+.section-title{display:flex;align-items:center;gap:10px;margin:0 0 12px 0;}
+.section-title .dot{width:12px;height:12px;border-radius:50%;background:var(--accent);}
+.muted{color:var(--text-dim);}
+input,select,textarea,button{
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);
+  color:var(--text);
+  padding:12px 14px;
+  font-size:14px;
+  transition:var(--transition);
+}
+input:focus,textarea:focus,select:focus{outline:none;border-color:var(--accent);}
+textarea{min-height:100px;resize:vertical;}
+label{font-size:13px;color:var(--text-dim);}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px;}
+.btn{cursor:pointer;font-weight:700;transition:var(--transition);}
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#071019;
+  border:none;
+  padding:10px 18px;
+  box-shadow:0 4px 12px rgba(34,211,238,.4);
+}
+.hidden {
+  display: none;
+}
+
+.btn.primary:hover{transform:scale(1.03);}
+.btn.ghost{background:transparent;border:1px dashed rgba(255,255,255,.2);}
+.btn.ghost:hover{background:rgba(255,255,255,.05);}
+.btn.danger{background:transparent;border-color:var(--danger);color:var(--danger);}
+.btn.danger:hover{background:rgba(248,113,113,.1);}
+.feed{display:flex;flex-direction:column;gap:16px;}
+.post-head{display:flex;gap:12px;align-items:center;justify-content:space-between;font-weight:600;}
+.meta{font-size:13px;color:var(--text-dim);}
+.offer{font-size:14px;color:#e5e7eb;}
+.badge{padding:3px 10px;border-radius:999px;background:rgba(34,211,238,.15);color:var(--accent);font-weight:600;font-size:12px;}
+.bottom-tabs{position:fixed;bottom:0;left:0;width:100%;background:#111827;display:flex;justify-content:space-around;padding:12px 0;border-top:1px solid rgba(255,255,255,.08);}
+.bottom-tabs button{background:transparent;border:none;color:var(--text);font-weight:700;font-size:14px;}
+.bottom-tabs button.active{color:var(--accent);}
+#tabProfile .card{display:flex;flex-direction:column;gap:8px;font-size:15px;}
+#tabProfile .card div{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,.08);}
+#tabProfile .card div:last-child{border-bottom:none;}
+.manual-icon{display:inline-block;width:16px;height:16px;margin-right:6px;vertical-align:text-bottom;background:var(--accent);border-radius:50%;}
+.post img {
+  max-width: 100%;
+  max-height: 250px;
+  border-radius: 12px;
+  object-fit: cover;
+  display: block;
+  margin: 10px auto;
+}
+.post-image-container {
+  max-width: 90%;           /* container won't exceed feed width */
+  max-height: 250px;        /* cap image height */
+  margin: 10px auto;        /* center horizontally */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;         /* prevents overflow */
+}
+
+.post-image-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;      /* scales proportionally, no cropping */
+  border-radius: 12px;
+  display: block;
+}
+.logo-img{
+  width:64px;
+  height:64px;
+  border-radius:14px;     /* remove if you want sharp corners */
+  object-fit:contain;     /* keeps the infinity shape crisp */
+  display:block;
+  box-shadow:var(--shadow);
+}
+@media (max-width:480px){
+  .logo-img{ width:54px; height:54px; }
+}
+/* small circular avatar for posts */
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: inline-block;
+  box-shadow: var(--shadow);
+}
+
+/* bigger preview in Profile tab */
+.avatar-lg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+/* medium avatar for feed (increased for better visibility) */
+.avatar-md {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  object-fit: cover;
+  box-shadow: var(--shadow);
+}
+
+@media (max-width:480px){
+  .avatar-md { width: 48px; height: 48px; }
+}
+
+
+
+
+</style>
+</head>
+<body>
+<div class="container">
+<header>
+  <div class="brand">
+<img src="./46a0df59-99cf-4f6e-a662-2e0b6caf9e78.png"
+  alt="Campus Connect logo"
+  class="logo-img"
+  width="64" height="64"
+  decoding="async" />
+
+  <div>
+    <div class="title">Campus Connect</div>
+    <div class="lead">Borrow items • Get help • Trade favors</div>
+  </div>
+</div>
+
+  <div class="actions">
+    <div style="display:flex;align-items:center;gap:8px;font-family:'Comic Neue', cursive;font-size:14px;color:var(--text-dim);">
+  <span>Daily Fun Fact!</span>
+  <span id="funFact" class="pill" title="Fun fact of the day"></span>
+</div>
+
+
+    <button type="button" class="btn ghost" id="btnSignOut" style="display:none">Sign out</button>
+  </div>
+</header>
+
+<!-- TABS -->
+<div id="tabFeed" class="tabContent"></div>
+<div id="tabCreate" class="tabContent" style="display:none"></div>
+<div id="tabPending" class="tabContent" style="display:none"></div>
+<div id="tabManual" class="tabContent" style="display:none"></div>
+<div id="tabProfile" class="tabContent" style="display:none"></div>
+<div id="tabFeedback" class="tabContent" style="display:none"></div>
+
+<div class="bottom-tabs">
+  <button class="active" data-tab="tabFeed">Feed</button>
+  <button data-tab="tabCreate">Create Task</button>
+  <button data-tab="tabPending">Pending</button>
+  <button data-tab="tabManual">Manual</button>
+  <button data-tab="tabProfile">Profile</button>
+  <button data-tab="tabFeedback">Feedback</button>
+</div>
+</div>
+
+<!-- Sign in dialog -->
+<dialog id="signinDialog">
+<div class="inner">
+  <div class="section-title"><span class="dot"></span><h3>Sign in</h3></div>
+  <!-- paste this right above the <form id="signinForm"> -->
+<div id="signinWarning" style="color:var(--danger);font-weight:700;margin:8px 0;">
+  WARNING: Signing in with an ID that is not yours is misuse. All activity is logged and will be reviewed — offenders will be reported.
+</div>
+
+  <form id="signinForm">
+    <div class="row">
+      <div>
+        <label for="studentName">Display name</label>
+        <input id="studentName" placeholder="e.g., Alex" required maxlength="24" />
+      </div>
+      <div>
+        <label for="studentGrade">Grade</label>
+        <select id="studentGrade" required>
+          <option value="9">9th</option>
+          <option value="10">10th</option>
+          <option value="11">11th</option>
+          <option value="12">12th</option>
+        </select>
+      </div>
+    </div>
+    <div>
+  <label for="studentSchool">School</label>
+  <select id="studentSchool" required>
+    <option value="Clements HS">Clements HS</option>
+    <option value="Elkins HS">Elkins HS</option>
+    <option value="Austin HS">Austin HS</option>
+    <option value="Bush HS">Bush HS</option>
+    <!-- Add more FBISD schools if needed -->
+  </select>
+</div>
+
+    <div class="row">
+      <div>
+        <label for="studentId">Student ID (6 digits)</label>
+        <input id="studentId" inputmode="numeric" pattern="[0-9]{6}" placeholder="847229" required />
+      </div>
+      <div>
+        <label>&nbsp;</label>
+        <button class="btn primary" type="submit" style="width:100%">Let me in</button>
+      </div>
+    </div>
+  </form>
+</div>
+</dialog>
+
+<div id="toast" style="position:fixed;inset:auto 0 20px 0;display:flex;justify-content:center;pointer-events:none;z-index:9999"></div>
+
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
+<script>
+/********* FIREBASE *********/
+const firebaseConfig = {
+  apiKey: "AIzaSyCVZX1rEzEED5U-2B5RJafIn1XoUF9UAII",
+  authDomain: "studyexhange.firebaseapp.com",
+  projectId: "studyexhange",
+  storageBucket: "studyexhange.firebasestorage.app",
+  messagingSenderId: "615552195691",
+  appId: "1:615552195691:web:31e34f8f8519fc3deb252e",
+  measurementId: "G-XQFFJ2Z3F8"
+};
+if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
+
+/********* LIKE + COMMENT LOGIC *********/
+
+// Toggle like for a post
+async function toggleLike(postId) {
+  if (!app.user) return alert("Sign in first!");
+  const ref = db.collection('posts').doc(postId);
+  const doc = await ref.get();
+  if (!doc.exists) return;
+
+  const data = doc.data();
+  const likes = data.likes || [];
+  const alreadyLiked = likes.includes(app.user.id);
+
+  const updatedLikes = alreadyLiked
+    ? likes.filter(id => id !== app.user.id)
+    : [...likes, app.user.id];
+
+  await ref.update({ likes: updatedLikes });
+}
+
+// Add a new comment
+async function addComment(postId, text) {
+  if (!app.user) return alert("Sign in first!");
+ if (!text.trim()) return;
+
+// Check for banned words in comment and deduct rep
+if (containsBannedWords(text)) {
+  await db.collection('users').doc(app.user.id).update({
+    rep: firebase.firestore.FieldValue.increment(-5)
+  });
+  toast('Inappropriate comment! 5 reputation points deducted.');
+  updateProfileUI();
+  return;
+}
+
+
+  const ref = db.collection('posts').doc(postId);
+  await ref.update({
+    comments: firebase.firestore.FieldValue.arrayUnion({
+      userId: app.user.id,
+      name: app.user.name || "Anonymous",
+      text: text.trim(),
+      createdAt: Date.now()
+    })
+  });
+}
+
+// Toggle comment visibility
+function toggleComments(postId) {
+  const el = document.getElementById(`comments-${postId}`);
+  const btn = document.getElementById(`toggle-comments-btn-${postId}`);
+  if (!el || !btn) return;
+
+  if (el.style.display === 'block') {
+    el.style.display = 'none';
+    btn.textContent = `💬 View Comments (${el.dataset.count || 0})`;
+  } else {
+    el.style.display = 'block';
+    btn.textContent = `🔽 Collapse Comments`;
+  }
+}
+
+
+
+// Submit new commentlogo.svg
+async function submitComment(postId) {
+  const input = document.getElementById(`comment-input-${postId}`);
+  const text = input.value.trim();
+  if (!text) return;
+
+  // Check for banned words in comments
+  if (containsBannedWords(text)) {
+    toast('Your comment contains inappropriate language and cannot be submitted.');
+    return;
+  }
+
+  await addComment(postId, text);
+  input.value = '';
+}
+
+
+
+/********* APP STATE *********/
+const app = { user:null, posts:[], userReps: {}, funFacts:[
+  "Octopuses have three hearts.","Bananas are berries; strawberries aren't.","Honey never spoils.",
+  "Sharks existed before trees.","Hot water can freeze faster than cold (Mpemba effect).",
+  "A day on Venus is longer than its year.","Koalas have fingerprints like humans.",
+  "Your brain uses ~20% of your body's energy.","Some metals explode on contact with water (sodium).",
+  "Wombat poop is cube-shaped."
+]};
+// List of banned words (expand as needed)
+const bannedWords = [
+  "kill","bitch","shit","asshole","ass","loser","fuck","mf","skibbidy","toilet","sexy","hoe","slut"
+];
+
+// Simple check function
+function containsBannedWords(str='') {
+  const lower = str.toLowerCase();
+  return bannedWords.some(word => lower.includes(word));
+}
+
+// Keep track of which user rep documents we've subscribed to so we don't attach many listeners
+const _watchedUserReps = new Set();
+
+// Watch a user's rep field in realtime and update any UI elements that reference it
+function watchUserRep(userId){
+  if(!userId) return;
+  if(_watchedUserReps.has(userId)) return;
+  _watchedUserReps.add(userId);
+  db.collection('users').doc(userId).onSnapshot(doc => {
+    const data = doc.exists ? doc.data() : null;
+    const rep = data && typeof data.rep !== 'undefined' ? data.rep : 0;
+    app.userReps[userId] = rep;
+    // Update any elements in the feed that show this user's rep
+    document.querySelectorAll(`[data-author-rep="${userId}"]`).forEach(el=>{
+      el.textContent = `(${rep} rep)`;
+    });
+    // Also update profile UI if currently viewing that profile
+    if(app.user && app.user.id === userId) updateProfileUI();
+  });
+}
+
+// Validate post content
+async function validatePostContent(post) {
+  const fields = [post.title, post.desc, post.offerDetail, post.subject];
+  if(fields.some(f => containsBannedWords(f))){
+    if(app.user){
+      // Deduct reputation
+      await db.collection('users').doc(app.user.id).update({
+        rep: firebase.firestore.FieldValue.increment(-5)
+      });
+      toast('Inappropriate content detected! 5 reputation points deducted.');
+      updateProfileUI();
+    }
+    return false;
+  }
+  return true;
+}
+
+
+
+// Returns today's date at midnight in Central Time (Fort Bend)
+function todayCentral() {
+  const now = new Date();
+  // UTC time in ms
+  const utc = now.getTime() + now.getTimezoneOffset() * 60000;
+  // Central Time offset (-5 for CST, adjust for DST if needed)
+  const offset = -5;
+  const central = new Date(utc + 3600000 * offset);
+  central.setHours(0,0,0,0); // midnight
+  return central;
+}
+
+
+/********* UTILS *********/
+const uid = () => Math.random().toString(36).slice(2,10);
+const now = () => new Date().toISOString();
+function escapeHtml(str=''){return String(str).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");}
+function toast(msg){const el=document.createElement('div');el.style.cssText='background:rgba(17,24,39,.98);border:1px solid rgba(255,255,255,.12);padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.35);margin:6px;pointer-events:auto';el.textContent=msg;document.getElementById('toast').appendChild(el);setTimeout(()=>el.remove(),2600);}
+function funFactOfTheDay(){const i=Math.floor((Date.now()/(1000*60*60*24))%app.funFacts.length);return app.funFacts[i];}
+
+/********* AUTH *********/
+const signinDialog = document.getElementById('signinDialog');
+const signinForm = document.getElementById('signinForm');
+const btnSignOut = document.getElementById('btnSignOut');
+
+async function updateProfileUI(){
+  if(!app.user){ 
+    document.getElementById('tabProfile').innerHTML=''; 
+    btnSignOut.style.display='none'; 
+    return; 
+  }
+
+  const snap = await db.collection('users').doc(app.user.id).get();
+  const userData = snap.data();
+
+  document.getElementById('tabProfile').innerHTML = `
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:14px;margin-bottom:10px;">
+      ${userData.photoData ? `
+        <img src="${escapeHtml(userData.photoData)}" class="avatar-lg" alt="${escapeHtml(userData.name)}"/>
+      ` : `
+        <div class="avatar-lg" style="display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.06);font-weight:700;">?</div>
+      `}
+      <div>
+        <label style="display:block;font-size:12px;color:var(--text-dim);margin-bottom:6px;">Profile picture (optional)</label>
+        <input type="file" id="profilePhotoInput" accept="image/*"/>
+        ${userData.photoData ? `
+          <button id="removePhotoBtn" class="btn ghost" style="margin-left:8px;">Remove</button>
+        ` : ``}
+      </div>
+    </div>
+
+    <div>
+      <strong>Name:</strong> 
+      <input id="editName" value="${escapeHtml(userData.name)}" maxlength="24"/>
+    </div>
+    <div>
+      <strong>Grade:</strong>
+      <select id="editGrade">
+        <option value="9" ${userData.grade==='9'?'selected':''}>9th</option>
+        <option value="10" ${userData.grade==='10'?'selected':''}>10th</option>
+        <option value="11" ${userData.grade==='11'?'selected':''}>11th</option>
+        <option value="12" ${userData.grade==='12'?'selected':''}>12th</option>
+      </select>
+    </div>
+
+    <div>
+      <strong>School:</strong>
+      <select id="editSchool">
+        <option value="Clements HS" ${userData.school==='Clements HS'?'selected':''}>Clements HS</option>
+        <option value="Elkins HS" ${userData.school==='Elkins HS'?'selected':''}>Elkins HS</option>
+        <option value="Austin HS" ${userData.school==='Austin HS'?'selected':''}>Austin HS</option>
+        <option value="Bush HS" ${userData.school==='Bush HS'?'selected':''}>Bush HS</option>
+      </select>
+    </div>
+
+    <div><strong>Reputation:</strong> ${userData.rep}</div>
+
+    <div class="actions" style="margin-top:10px;">
+      <button class="btn primary" id="saveProfileBtn">Save</button>
+    </div>
+  </div>`;
+
+  btnSignOut.style.display='inline-flex';
+
+  // Save profile text fields
+  document.getElementById('saveProfileBtn').addEventListener('click', async () => {
+    const newName = document.getElementById('editName').value.trim();
+    const newGrade = document.getElementById('editGrade').value;
+    const newSchool = document.getElementById('editSchool').value;
+
+    let updates = {};
+    if (newName && newName !== userData.name) updates.name = newName;
+    if (newGrade && newGrade !== userData.grade) updates.grade = newGrade;
+    if (newSchool && newSchool !== userData.school) updates.school = newSchool;
+
+    if (Object.keys(updates).length === 0) { 
+      toast('No changes to save'); 
+      return; 
+    }
+
+    try {
+      await db.collection('users').doc(app.user.id).update(updates);
+      const snap = await db.collection('users').doc(app.user.id).get();
+      app.user = { id: app.user.id, ...snap.data() };
+      toast('Profile updated!');
+      updateProfileUI();
+      renderFeed();
+      renderPending();
+      renderFeedback();
+    } catch (e) {
+      console.error(e);
+      toast('Could not save profile');
+    }
+  });
+
+  // Upload/change profile photo -> store as Base64 in users/{id}.photoData
+  const fileInput = document.getElementById('profilePhotoInput');
+  if (fileInput) {
+    fileInput.addEventListener('change', async (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+
+      // Read file as Base64 (data URL)
+      const reader = new FileReader();
+      reader.onload = async (ev) => {
+        const base64Data = ev.target.result; // "data:image/...;base64,...."
+        // (Optional: you could resize/compress here with a canvas before saving.)
+        try {
+          await db.collection('users').doc(app.user.id).update({ photoData: base64Data });
+          const snap = await db.collection('users').doc(app.user.id).get();
+          app.user = { id: app.user.id, ...snap.data() };
+          toast('Profile photo updated!');
+          updateProfileUI();
+          renderFeed();
+        } catch (err) {
+          console.error(err);
+          toast('Could not update photo');
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  // Remove profile photo
+  const removeBtn = document.getElementById('removePhotoBtn');
+  if (removeBtn) {
+    removeBtn.addEventListener('click', async () => {
+      try {
+        await db.collection('users').doc(app.user.id).update({ photoData: firebase.firestore.FieldValue.delete() });
+        const snap = await db.collection('users').doc(app.user.id).get();
+        app.user = { id: app.user.id, ...snap.data() };
+        toast('Profile photo removed');
+        updateProfileUI();
+        renderFeed();
+      } catch (err) {
+        console.error(err);
+        toast('Could not remove photo');
+      }
+    });
+  }
+}
+
+
+function requireAuth(){if(!app.user){if(!signinDialog.open)signinDialog.showModal();}}
+
+signinForm.addEventListener('submit', async e=>{
+  e.preventDefault();
+  const name = document.getElementById('studentName').value.trim();
+  const grade = document.getElementById('studentGrade').value;
+  const id = document.getElementById('studentId').value.trim();
+  if(!/^\d{6}$/.test(id)){toast('ID must be 6 digits'); return;}
+  try {
+    const userRef = db.collection('users').doc(id);
+    const userDoc = await userRef.get();
+    const school = document.getElementById('studentSchool').value;
+if(!school){ toast('Select a school'); return; }
+
+if(!userDoc.exists){
+  await userRef.set({name, grade, school, rep:0});
+} else {
+  const data = userDoc.data();
+  if(!data.name) await userRef.update({name});
+  if(!data.grade) await userRef.update({grade});
+  if(!data.school) await userRef.update({school});
+}
+
+    const snap = await userRef.get();
+   app.user = { id, ...snap.data(), school };
+
+    updateProfileUI();
+    renderTabs('tabFeed');
+    signinDialog.close();
+    toast('Signed in!');
+    startPostsListener();
+  } catch(err){console.error(err); toast('Could not sign in. Check your internet and Firestore rules.');}
+});
+
+btnSignOut.addEventListener('click', ()=>{
+  app.user = null;
+  updateProfileUI();
+  renderTabs('tabFeed');
+  toast('Signed out');
+  if(!signinDialog.open) signinDialog.showModal();
+});
+
+/********* TABS NAV *********/
+document.querySelectorAll('.bottom-tabs button').forEach(btn=>{btn.addEventListener('click',()=>renderTabs(btn.dataset.tab));});
+function renderTabs(tab){
+  document.querySelectorAll('.tabContent').forEach(t=>t.style.display='none');
+  document.querySelectorAll('.bottom-tabs button').forEach(b=>b.classList.remove('active'));
+  document.getElementById(tab).style.display='block';
+  document.querySelector(`.bottom-tabs button[data-tab="${tab}"]`)?.classList.add('active');
+  if(tab==='tabFeed') renderFeed();
+  if(tab==='tabCreate') renderCreate();
+  if(tab==='tabPending') renderPending();
+  if(tab==='tabFeedback') renderFeedback();
+  if(tab==='tabManual') renderManual();
+}
+
+/********* CREATE TASK *********/
+function renderCreate(){
+  const container=document.getElementById('tabCreate');
+  container.innerHTML=`<div class="card">
+<h3>Create a Task</h3>
+<form id="postForm">
+<div class="row">
+<div><label>Type</label><select id="postType" required>
+<option value="help">Help with subject</option>
+<option value="borrow">Borrow an item</option>
+<option value="favor">Personal favor</option>
+<option value="combo">Combo</option>
+</select></div>
+<div><label>Title</label><input id="title" required maxlength="80"/></div>
+</div>
+<div class="row">
+<div><label>Subject/Category</label><input id="subject"/></div>
+<div><label>Offer</label><select id="offer" required>
+<option value="money">Money</option>
+<option value="tutor">Tutor</option>
+<option value="item">Item</option>
+<option value="favor">Favor</option>
+</select></div>
+</div>
+<div class="row">
+<div><label>Offer Details</label><input id="offerDetail"/></div>
+<div><label>Due Date</label><input type="date" id="dueDate" required/></div>
+</div>
+<div class="row">
+  <div>
+    <label>Attach Image</label>
+    <input type="file" id="postImage" accept="image/*"/>
+  </div>
+</div>
+<div>
+  <label>Description</label>
+  <textarea id="desc"></textarea>
+</div>
+<div class="actions">
+  <button class="btn primary" type="submit">Post</button>
+</div>
+</form>
+</div>`;
+
+document.getElementById('postForm').addEventListener('submit', async e => {
+  e.preventDefault(); 
+  requireAuth(); if(!app.user) return;
+  const fileInput = document.getElementById('postImage');
+  let imageData = null;
+  if(fileInput.files.length){
+    const file = fileInput.files[0];
+    imageData = await new Promise((res, rej) => {
+      const reader = new FileReader();
+      reader.onload = e => res(e.target.result);
+      reader.onerror = e => rej(e);
+      reader.readAsDataURL(file);
+    });
+  }
+const dueDateInput = document.getElementById('dueDate').value;
+if(!dueDateInput){ toast('Please select a due date'); return; }
+
+// Parse as Central Time
+const [year, month, day] = dueDateInput.split('-').map(Number);
+const dueDateObj = todayCentral();
+dueDateObj.setFullYear(year, month-1, day);
+dueDateObj.setHours(0,0,0,0); // midnight Central
+
+const today = todayCentral();
+if(dueDateObj.getTime() < today.getTime()){
+  toast('Due date cannot be in the past!');
+  return;
+}
+
+
+
+
+const post = {
+  authorId: app.user.id,
+  authorName: app.user.name,
+  school: app.user.school,
+  authorPhotoData: app.user.photoData || null,
+
+
+  type: document.getElementById('postType').value,
+  title: document.getElementById('title').value.trim(),
+  subject: document.getElementById('subject').value.trim(),
+  offer: document.getElementById('offer').value,
+  offerDetail: document.getElementById('offerDetail').value.trim(),
+  dueDate: dueDateInput,
+  desc: document.getElementById('desc').value.trim(),
+  imageData,
+  completed: false,
+  takerId: null,
+  authorConfirmed: false,
+  takerConfirmed: false,
+  // Option B: move withdrawn up a bit (my preference)
+withdrawn: false,
+createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+
+};
+// Check for inappropriate content
+// Check for inappropriate content and deduct reputation if needed
+if(!(await validatePostContent(post))){
+  return; // Post blocked and rep deducted
+}
+
+
+
+  try {
+    await db.collection('posts').add(post);
+    toast('Task posted!');
+    document.getElementById('postForm').reset();
+  } catch(e) { console.error(e); toast('Could not post task'); }
+});
+}
+
+/********* FEED TAB *********/
+function renderFeed() {
+  const container = document.getElementById('tabFeed'); 
+  container.innerHTML = '';
+
+  // Only show tasks that are not taken or withdrawn
+let userSchool = app.user?.school || '';
+let tasks = app.posts.filter(p => !p.takerId && !p.withdrawn && p.school === userSchool);
+
+
+
+  if (!tasks.length) {
+    container.innerHTML = '<div class="empty">No tasks yet</div>'; 
+    return; 
+  }
+
+  tasks.forEach(p => {
+    const card = document.createElement('div'); 
+    card.className = 'card';
+
+    // Calculate status
+    const dueDate = new Date(p.dueDate);
+    let today = todayCentral();
+let due = new Date(p.dueDate + "T00:00:00");
+
+let status = '';
+if (p.completed) status = 'Completed';
+else if (today > due) status = 'Overdue';
+else status = 'Pending';
+
+
+    const likesCount = Array.isArray(p.likes) ? p.likes.length : 0;
+    const comments = Array.isArray(p.comments) ? p.comments : [];
+
+    // Ensure we are watching this author's reputation
+    watchUserRep(p.authorId);
+
+    const repDisplay = typeof app.userReps[p.authorId] !== 'undefined' ? `(${app.userReps[p.authorId]} rep)` : '(0 rep)';
+
+    card.innerHTML = `
+      <div class="post-head">
+        <div><strong>${escapeHtml(p.title)}</strong> (${escapeHtml(p.type)})</div>
+        <div class="badge">${status}</div>
+      </div>
+      <div class="offer"><strong>Offer:</strong> ${escapeHtml(p.offer)} ${escapeHtml(p.offerDetail)}</div>
+      <div class="meta" style="display:flex;align-items:center;gap:10px;">
+  ${p.authorPhotoData ? `<img class="avatar-md" src="${escapeHtml(p.authorPhotoData)}" alt="${escapeHtml(p.authorName)}">` : ``}
+  <span>Author: ${escapeHtml(p.authorName)} <span data-author-rep="${p.authorId}">${repDisplay}</span> | Due: ${p.dueDate}</span>
+</div>
+
+
+      <div>${escapeHtml(p.desc)}</div>
+      ${p.imageData ? `
+  <div class="post-image-container">
+    <img src="${p.imageData}" />
+  </div>
+` : ''}
+
+      <div class="actions">
+        <button class="btn primary" onclick="takeTask('${p.id}')">Sign up</button>
+        <button class="btn ghost" id="like-btn-${p.id}">❤️ ${likesCount}</button>
+        <button class="btn ghost" id="toggle-comments-btn-${p.id}" onclick="toggleComments('${p.id}')">
+          💬 View Comments (${comments.length})
+        </button>
+      </div>
+      <div id="comments-${p.id}" class="hidden" style="margin-top:8px;" data-count="${comments.length}">
+        ${comments.map(c => `<div><strong>${escapeHtml(c.name)}:</strong> ${escapeHtml(c.text)}</div>`).join('')}
+        <div style="margin-top:6px;">
+          <input type="text" id="comment-input-${p.id}" placeholder="Write a comment..." style="width:70%;"/>
+          <button class="btn primary" onclick="submitComment('${p.id}')">Send</button>
+        </div>
+      </div>
+    `;
+
+    container.appendChild(card);
+
+    // Attach like button listener
+    const likeBtn = document.getElementById(`like-btn-${p.id}`);
+    likeBtn.addEventListener('click', async () => {
+      await toggleLike(p.id);
+    });
+  });
+}
+
+
+
+
+
+/********* PENDING TAB *********/
+function renderPending() {
+  requireAuth();
+  const container = document.getElementById('tabPending'); 
+  container.innerHTML = '';
+
+let tasks = app.posts.filter(p => 
+  (p.takerId === app.user.id || p.authorId === app.user.id) &&
+  !(p.deletedBy || []).includes(app.user.id) // hide removed completed tasks
+);
+
+  if (!tasks.length) { container.innerHTML = '<div class="empty">No pending tasks</div>'; return; }
+
+  tasks.forEach(p => {
+    const card = document.createElement('div'); 
+    card.className = 'card';
+    const due = new Date(p.dueDate); 
+    const status = (p.completed ? 'Completed' : new Date() > due ? 'Overdue' : 'Pending');
+
+    let actionsHtml = '';
+
+  
+
+
+    // Delete / withdraw / repost
+   // Delete buttons logic
+// Delete / withdraw / repost (final behavior)
+// - Author can delete anytime (incomplete or completed).
+// - Repost shows ONLY after a taker has withdrawn (withdrawn===true) and there is no taker.
+// - Completed tasks: either side can "Remove" (soft-hide); doc deletes when both have removed.
+
+if (p.completed) {
+  // Completed -> per-user removal
+  if (app.user.id === p.authorId || app.user.id === p.takerId) {
+    actionsHtml += `<button class="btn danger" onclick="deleteTask('${p.id}')">Remove</button>`;
+  }
+} else {
+  // INCOMPLETE
+  // Author controls
+  if (app.user.id === p.authorId) {
+    // Author can delete even if there is an active taker (your deleteTask() already warns)
+    actionsHtml += `<button class="btn danger" onclick="deleteTask('${p.id}')">Delete</button>`;
+
+    // Show Repost ONLY after taker withdrew (not for brand-new never-taken tasks)
+    if (p.withdrawn && !p.takerId) {
+      actionsHtml += `<button class="btn ghost" onclick="repostTask('${p.id}')">Repost</button>`;
+    } else if (p.takerId) {
+      actionsHtml += `<span class="muted">Waiting for taker...</span>`;
+    }
+  }
+
+  // Taker controls
+  const isAuthor = app.user.id === p.authorId;
+const isTaker = app.user.id === p.takerId;
+
+// Taker controls
+if (isTaker) {
+  actionsHtml += `<button class="btn primary" onclick="confirmTask('${p.id}','taker')">Confirm completion</button>`;
+  actionsHtml += `<button class="btn ghost" onclick="withdrawTask('${p.id}')">Withdraw</button>`;
+}
+
+// Author confirm button — show only to the author
+if (isAuthor && p.takerId && !p.completed) {
+  actionsHtml += `<button class="btn primary" onclick="confirmTask('${p.id}','author')">Confirm completion</button>`;
+}
+
+
+}
+
+
+
+    card.innerHTML = `
+      <div class="post-head"><strong>${escapeHtml(p.title)}</strong> <span class="badge">${status}</span></div>
+      <div class="offer"><strong>Offer:</strong> ${escapeHtml(p.offer)} ${escapeHtml(p.offerDetail)}</div>
+      <div class="meta">Author: ${escapeHtml(p.authorName)} | Due: ${p.dueDate}</div>
+      <div class="actions">${actionsHtml}</div>
+    `;
+    container.appendChild(card);
+  });
+}
+
+
+
+/********* FEEDBACK TAB *********/
+/********* FEEDBACK TAB *********/
+/********* FEEDBACK TAB (Simplified) *********/
+function renderFeedback() {
+  requireAuth();
+  const container = document.getElementById('tabFeedback'); 
+  container.innerHTML = '';
+
+  const tasks = app.posts.filter(p => 
+  p.completed &&
+  (p.authorId === app.user.id || p.takerId === app.user.id) &&
+  !(p.deletedBy || []).includes(app.user.id) // hide removed tasks
+);
+
+
+  if (!tasks.length) {
+    container.innerHTML = '<div class="empty">No completed tasks to leave feedback</div>';
+    return;
+  }
+
+  tasks.forEach(p => {
+    const yourRole = app.user.id === p.authorId ? 'author' : 'taker';
+    const otherRole = yourRole === 'author' ? 'taker' : 'author';
+    const otherId = otherRole === 'author' ? p.authorId : p.takerId;
+
+    const feedbacks = Array.isArray(p.feedbacks) ? p.feedbacks : [];
+    const yourFeedback = feedbacks.find(f => f.by === app.user.id);
+    const otherFeedback = feedbacks.find(f => f.by === otherId);
+
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    let actionsHtml = '';
+    if(!yourFeedback) actionsHtml += '<button class="btn primary">Leave Feedback</button>';
+
+    // If both users gave feedback, allow removing task from view
+    if(yourFeedback && otherFeedback){
+      actionsHtml += `<button class="btn danger" onclick="deleteTask('${p.id}')">Remove</button>`;
+    }
+
+    card.innerHTML = `
+      <strong>${escapeHtml(p.title)}</strong>
+      <div style="margin:8px 0;line-height:1.5;">
+        <div><strong>Your feedback:</strong> ${
+          yourFeedback ? `<em>Submitted: "${escapeHtml(yourFeedback.comment)}"</em>` : '<em>Not given yet</em>'
+        }</div>
+        <div><strong>${escapeHtml(p.authorName === app.user.name ? 'Their' : p.authorName)}'s feedback:</strong> ${
+          otherFeedback ? `<em>"${escapeHtml(otherFeedback.comment)}"</em>` : '<em>Not given yet</em>'
+        }</div>
+      </div>
+      <div class="actions">${actionsHtml}</div>
+    `;
+
+    container.appendChild(card);
+
+    const leaveBtn = card.querySelector('button.primary');
+    if (leaveBtn) {
+      leaveBtn.addEventListener('click', async () => {
+        const comment = prompt('Enter your feedback:');
+        if (!comment) return;
+        await saveFeedback(p.id, yourRole, comment);
+      });
+    }
+  });
+}
+
+
+
+
+
+
+
+async function saveFeedback(postId, role, comment){
+  try{
+    const ref = db.collection('posts').doc(postId);
+    const snap = await ref.get();
+    const post = snap.data();
+    if(!post) return;
+
+    let feedbacks = post.feedbacks || [];
+    feedbacks = feedbacks.filter(f => f.by !== app.user.id);
+    feedbacks.push({by: app.user.id, role, comment: comment.trim()});
+
+    await ref.update({feedbacks});
+    const index = app.posts.findIndex(p => p.id === postId);
+    if(index !== -1) app.posts[index].feedbacks = feedbacks;
+
+    toast('Feedback saved!');
+    renderFeedback();
+  } catch(e){
+    console.error(e);
+    toast('Could not save feedback');
+  }
+}
+
+
+
+
+async function hideFeedback(postId){
+  requireAuth(); if(!app.user) return;
+  try {
+    const postRef = db.collection('posts').doc(postId);
+    const postSnap = await postRef.get();
+    const post = postSnap.data(); if(!post) return;
+
+    let feedbacks = (post.feedbacks || []).filter(f => f.by !== app.user.id);
+    await postRef.update({feedbacks});
+    toast('Feedback deleted');
+    renderFeedback();
+  } catch(e){ console.error(e); toast('Could not delete feedback'); }
+}
+
+/********* TASK ACTIONS *********/
+async function takeTask(postId){
+  requireAuth(); if(!app.user) return;
+  const postRef = db.collection('posts').doc(postId);
+  const postSnap = await postRef.get();
+  const post = postSnap.data();
+  if(!post) return;
+  if(post.authorId===app.user.id){ toast("You can't sign up for your own task"); return; }
+  if(post.takerId){ toast("Task already taken"); return; }
+  await postRef.update({takerId: app.user.id});
+  toast('Task taken');
+}
+
+async function confirmTask(postId, role) {
+  const postRef = db.collection('posts').doc(postId);
+  const postSnap = await postRef.get();
+  const post = postSnap.data();
+  if (!post) return;
+
+  post[role + 'Confirmed'] = true;
+
+  if (post.authorConfirmed && post.takerConfirmed) {
+    post.completed = true;
+
+    // Reputation logic only for taker
+    const due = new Date(post.dueDate);
+    const nowDate = new Date();
+    const userRef = db.collection('users').doc(post.takerId);
+
+    if (nowDate > due) await userRef.update({ rep: firebase.firestore.FieldValue.increment(-5) });
+    else await userRef.update({ rep: firebase.firestore.FieldValue.increment(10) });
+
+    if (app.user.id === post.takerId) updateProfileUI();
+  }
+
+  await postRef.update(post);
+  toast('Task confirmed!');
+}
+async function deleteTask(postId){
+  requireAuth(); 
+  if(!app.user) return;
+  
+  const postRef = db.collection('posts').doc(postId);
+  const postSnap = await postRef.get();
+  const post = postSnap.data(); 
+  if(!post) return;
+
+  const isAuthor = app.user.id === post.authorId;
+  const isTaker = app.user.id === post.takerId;
+
+  // WARN AUTHOR IF SOMEONE HAS SIGNED UP
+  if(!post.completed && post.takerId && isAuthor){
+    if(!confirm("Warning: a user has already signed up for this task. Deleting it will remove it from their Pending tab. Proceed?")) {
+      return; // Stop deletion if they cancel
+    }
+  }
+
+  if(post.completed){
+    if(!post.deletedBy) post.deletedBy = [];
+    if(!post.deletedBy.includes(app.user.id)) post.deletedBy.push(app.user.id);
+    await postRef.update({deletedBy: post.deletedBy});
+    toast('Task removed from your view');
+    if(post.deletedBy.length === 2){
+      await postRef.delete();
+      app.posts = app.posts.filter(p => p.id !== postId);
+    }
+  } else {
+    if(isAuthor){
+      await postRef.delete();
+      app.posts = app.posts.filter(p => p.id !== postId);
+      toast('Task deleted');
+    } else {
+      toast('Only the author can delete an incomplete task');
+      return;
+    }
+  }
+
+  renderFeed();
+  renderPending();
+  renderFeedback();
+}
+
+async function withdrawTask(postId){
+  requireAuth(); if(!app.user) return;
+
+  const postRef = db.collection('posts').doc(postId);
+  const snap = await postRef.get();
+  const post = snap.data(); if(!post) return;
+
+  if (post.completed) { toast('Completed tasks cannot be withdrawn'); return; }
+  if (post.takerId !== app.user.id) { toast('Only the taker can withdraw'); return; }
+
+  await postRef.update({
+    withdrawn: true,
+    takerId: null,
+    authorConfirmed: false,
+    takerConfirmed: false,
+    completed: false,
+    updatedAt: firebase.firestore.FieldValue.serverTimestamp()
+  });
+
+  // Update local cache for snappy UI
+  app.posts = app.posts.map(p =>
+    p.id === postId
+      ? { ...p, withdrawn:true, takerId:null, authorConfirmed:false, takerConfirmed:false, completed:false }
+      : p
+  );
+
+  toast('You withdrew from the task');
+  renderFeed();
+  renderPending();
+  renderFeedback();
+}
+
+
+
+
+async function repostTask(postId) {
+  const newDate = prompt("Enter new due date (YYYY-MM-DD):");
+  if (!newDate) return;
+  // Get the original post from local app.posts
+const originalPost = app.posts.find(p => p.id === postId);
+if (!originalPost) return; // safety check
+
+// Block repost if content contains banned words
+// Block repost if content contains banned words and deduct rep
+if(!(await validatePostContent(originalPost))){
+  return; // Repost blocked and rep deducted
+}
+
+
+
+
+  // Use Central Time helper
+function todayCentral() {
+  const now = new Date();
+  // Central Time is UTC-5 or UTC-6 depending on DST
+  // We'll assume standard Central time (UTC-5) for simplicity
+  const offset = -5; // hours
+  const central = new Date(now.getTime() + (now.getTimezoneOffset()/60 + offset)*3600*1000);
+  central.setHours(0,0,0,0); // midnight
+  return central;
+}
+
+const dueDateObj = new Date(newDate);
+if(dueDateObj.getTime() < todayCentral().getTime()){
+  toast('Due date cannot be in the past!');
+  return;
+}
+
+
+  try {
+    const ref = db.collection('posts').doc(postId);
+    await ref.update({
+      withdrawn: false,
+      dueDate: newDate,
+      takerId: null,
+      authorConfirmed: false,
+      takerConfirmed: false,
+      completed: false,
+      createdAt: firebase.firestore.FieldValue.serverTimestamp()
+    });
+
+    // Update local app.posts immediately
+    app.posts = app.posts.map(p => p.id === postId 
+      ? {...p, withdrawn:false, takerId:null, completed:false, dueDate:newDate, authorConfirmed:false, takerConfirmed:false}
+      : p
+    );
+
+    toast('Task reposted!');
+    renderFeed();
+    renderPending();
+  } catch (e) {
+    console.error(e);
+    toast('Could not repost task');
+  }
+}
+
+
+
+
+
+
+/********* MANUAL TAB *********/
+function renderManual(){
+  const container = document.getElementById('tabManual');
+  container.innerHTML = `
+    <div class="card">
+      <div class="section-title"><span class="dot"></span><h3>App Rules & Guidelines</h3></div>
+      <ul style="padding-left:20px;line-height:1.6;">
+        <li><span class="manual-icon"></span> Only Clements HS students may use this app.</li>
+        <li><span class="manual-icon"></span> Be respectful when requesting or offering help.</li>
+        <li><span class="manual-icon"></span> Do not post inappropriate content or offensive language.</li>
+        <li><span class="manual-icon"></span> Tasks should be realistic and achievable.</li>
+        <li><span class="manual-icon"></span> Complete tasks on time to maintain reputation points.</li>
+        <li><span class="manual-icon"></span> Users may lose points if tasks are not completed properly.</li>
+        <li><span class="manual-icon"></span> Sign up only for tasks you can actually do.</li>
+        <li><span class="manual-icon"></span> Feedback should be honest and constructive.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="section-title"><span class="dot"></span><h3>How to Use the App</h3></div>
+      <ol style="padding-left:20px;line-height:1.6;">
+        <li><span class="manual-icon"></span> Sign in with your display name, grade, and 6-digit student ID.</li>
+        <li><span class="manual-icon"></span> View the Feed tab to see all available tasks.</li>
+        <li><span class="manual-icon"></span> Create a new task under “Create Task” tab by specifying type, title, offer, and details.</li>
+        <li><span class="manual-icon"></span> Sign up for tasks by clicking “Sign up” on tasks you can help with.</li>
+        <li><span class="manual-icon"></span> Confirm task completion in the Pending tab once done.</li>
+        <li><span class="manual-icon"></span> Leave feedback for other users in the Feedback tab.</li>
+        <li><span class="manual-icon"></span> Check your Profile tab to see your reputation points and details.</li>
+        <li><span class="manual-icon"></span> Follow the rules to keep your account in good standing.</li>
+      </ol>
+    </div>`;
+}
+
+/********* FIRESTORE LISTENER *********/
+function startPostsListener() {
+  db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(snap => {
+    app.posts = [];
+    snap.forEach(doc => {
+      app.posts.push({ ...doc.data(), id: doc.id });
+    });
+    renderFeed();      // Refresh the feed so likes/comments appear
+    renderPending();   // Refresh pending tasks
+    renderFeedback();  // Refresh feedback tab
+  });
+}
+
+
+/********* INIT *********/
+document.getElementById('funFact').textContent = funFactOfTheDay();
+if(!app.user){ if(!signinDialog.open) signinDialog.showModal(); }
+renderTabs('tabFeed');
+</script>
+</body>
+</html>
