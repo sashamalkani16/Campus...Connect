@@ -101,27 +101,27 @@ label{font-size:13px;color:var(--text-dim);}
   margin: 10px auto;
 }
 .post-image-container {
-  max-width: 90%;           /* container won't exceed feed width */
-  max-height: 250px;        /* cap image height */
-  margin: 10px auto;        /* center horizontally */
+  max-width: 90%;           
+  max-height: 250px;       
+  margin: 10px auto;        
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow: hidden;         /* prevents overflow */
+  overflow: hidden;        
 }
 
 .post-image-container img {
   max-width: 100%;
   max-height: 100%;
-  object-fit: contain;      /* scales proportionally, no cropping */
+  object-fit: contain;      
   border-radius: 12px;
   display: block;
 }
 .logo-img{
   width:64px;
   height:64px;
-  border-radius:14px;     /* remove if you want sharp corners */
-  object-fit:contain;     /* keeps the infinity shape crisp */
+  border-radius:14px;     
+  object-fit:contain;     
   display:block;
   box-shadow:var(--shadow);
 }
@@ -137,8 +137,7 @@ label{font-size:13px;color:var(--text-dim);}
   display: inline-block;
   box-shadow: var(--shadow);
 }
-
-/* bigger preview in Profile tab */
+/*PF TAB */
 .avatar-lg {
   width: 80px;
   height: 80px;
@@ -146,7 +145,6 @@ label{font-size:13px;color:var(--text-dim);}
   object-fit: cover;
   box-shadow: var(--shadow);
 }
-/* medium avatar for feed (increased for better visibility) */
 .avatar-md {
   width: 56px;
   height: 56px;
@@ -241,7 +239,7 @@ label{font-size:13px;color:var(--text-dim);}
     <option value="Elkins HS">Elkins HS</option>
     <option value="Austin HS">Austin HS</option>
     <option value="Bush HS">Bush HS</option>
-    <!-- Add more FBISD schools if needed -->
+    <!-- Add more schools later -->
   </select>
 </div>
 
@@ -279,9 +277,7 @@ const firebaseConfig = {
 if (!firebase.apps.length) firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-/********* LIKE + COMMENT LOGIC *********/
-
-// Toggle like for a post
+/*Like and comments */
 async function toggleLike(postId) {
   if (!app.user) return alert("Sign in first!");
   const ref = db.collection('posts').doc(postId);
@@ -299,12 +295,12 @@ async function toggleLike(postId) {
   await ref.update({ likes: updatedLikes });
 }
 
-// Add a new comment
+//New CM
 async function addComment(postId, text) {
   if (!app.user) return alert("Sign in first!");
  if (!text.trim()) return;
 
-// Check for banned words in comment and deduct rep
+// Check for banned word
 if (containsBannedWords(text)) {
   await db.collection('users').doc(app.user.id).update({
     rep: firebase.firestore.FieldValue.increment(-5)
@@ -326,7 +322,7 @@ if (containsBannedWords(text)) {
   });
 }
 
-// Toggle comment visibility
+// CM CONT.
 function toggleComments(postId) {
   const el = document.getElementById(`comments-${postId}`);
   const btn = document.getElementById(`toggle-comments-btn-${postId}`);
@@ -341,15 +337,11 @@ function toggleComments(postId) {
   }
 }
 
-
-
-// Submit new commentlogo.svg
 async function submitComment(postId) {
   const input = document.getElementById(`comment-input-${postId}`);
   const text = input.value.trim();
   if (!text) return;
 
-  // Check for banned words in comments
   if (containsBannedWords(text)) {
     toast('Your comment contains inappropriate language and cannot be submitted.');
     return;
@@ -359,9 +351,7 @@ async function submitComment(postId) {
   input.value = '';
 }
 
-
-
-/********* APP STATE *********/
+//the state1
 const app = { user:null, posts:[], userReps: {}, funFacts:[
   "Octopuses have three hearts.","Bananas are berries; strawberries aren't.","Honey never spoils.",
   "Sharks existed before trees.","Hot water can freeze faster than cold (Mpemba effect).",
@@ -369,7 +359,7 @@ const app = { user:null, posts:[], userReps: {}, funFacts:[
   "Your brain uses ~20% of your body's energy.","Some metals explode on contact with water (sodium).",
   "Wombat poop is cube-shaped."
 ]};
-// List of banned words (expand as needed)
+//words banned
 const bannedWords = [
   "kill","bitch","shit","asshole","ass","loser","fuck","mf","skibbidy","toilet","sexy","hoe","slut"
 ];
@@ -379,11 +369,7 @@ function containsBannedWords(str='') {
   const lower = str.toLowerCase();
   return bannedWords.some(word => lower.includes(word));
 }
-
-// Keep track of which user rep documents we've subscribed to so we don't attach many listeners
 const _watchedUserReps = new Set();
-
-// Watch a user's rep field in realtime and update any UI elements that reference it
 function watchUserRep(userId){
   if(!userId) return;
   if(_watchedUserReps.has(userId)) return;
@@ -392,21 +378,19 @@ function watchUserRep(userId){
     const data = doc.exists ? doc.data() : null;
     const rep = data && typeof data.rep !== 'undefined' ? data.rep : 0;
     app.userReps[userId] = rep;
-    // Update any elements in the feed that show this user's rep
     document.querySelectorAll(`[data-author-rep="${userId}"]`).forEach(el=>{
       el.textContent = `(${rep} rep)`;
     });
-    // Also update profile UI if currently viewing that profile
     if(app.user && app.user.id === userId) updateProfileUI();
   });
 }
 
-// Validate post content
+// Validate
 async function validatePostContent(post) {
   const fields = [post.title, post.desc, post.offerDetail, post.subject];
   if(fields.some(f => containsBannedWords(f))){
     if(app.user){
-      // Deduct reputation
+      //Deduct rep
       await db.collection('users').doc(app.user.id).update({
         rep: firebase.firestore.FieldValue.increment(-5)
       });
@@ -420,7 +404,7 @@ async function validatePostContent(post) {
 
 
 
-// Returns today's date at midnight in Central Time (Fort Bend)
+//time
 function todayCentral() {
   const now = new Date();
   // UTC time in ms
@@ -431,16 +415,11 @@ function todayCentral() {
   central.setHours(0,0,0,0); // midnight
   return central;
 }
-
-
-/********* UTILS *********/
 const uid = () => Math.random().toString(36).slice(2,10);
 const now = () => new Date().toISOString();
 function escapeHtml(str=''){return String(str).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'","&#39;");}
 function toast(msg){const el=document.createElement('div');el.style.cssText='background:rgba(17,24,39,.98);border:1px solid rgba(255,255,255,.12);padding:10px 14px;border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.35);margin:6px;pointer-events:auto';el.textContent=msg;document.getElementById('toast').appendChild(el);setTimeout(()=>el.remove(),2600);}
 function funFactOfTheDay(){const i=Math.floor((Date.now()/(1000*60*60*24))%app.funFacts.length);return app.funFacts[i];}
-
-/********* AUTH *********/
 const signinDialog = document.getElementById('signinDialog');
 const signinForm = document.getElementById('signinForm');
 const btnSignOut = document.getElementById('btnSignOut');
@@ -504,13 +483,10 @@ async function updateProfileUI(){
   </div>`;
 
   btnSignOut.style.display='inline-flex';
-
-  // Save profile text fields
   document.getElementById('saveProfileBtn').addEventListener('click', async () => {
     const newName = document.getElementById('editName').value.trim();
     const newGrade = document.getElementById('editGrade').value;
     const newSchool = document.getElementById('editSchool').value;
-
     let updates = {};
     if (newName && newName !== userData.name) updates.name = newName;
     if (newGrade && newGrade !== userData.grade) updates.grade = newGrade;
@@ -520,7 +496,6 @@ async function updateProfileUI(){
       toast('No changes to save'); 
       return; 
     }
-
     try {
       await db.collection('users').doc(app.user.id).update(updates);
       const snap = await db.collection('users').doc(app.user.id).get();
@@ -535,19 +510,14 @@ async function updateProfileUI(){
       toast('Could not save profile');
     }
   });
-
-  // Upload/change profile photo -> store as Base64 in users/{id}.photoData
   const fileInput = document.getElementById('profilePhotoInput');
   if (fileInput) {
     fileInput.addEventListener('change', async (e) => {
       const file = e.target.files?.[0];
       if (!file) return;
-
-      // Read file as Base64 (data URL)
       const reader = new FileReader();
       reader.onload = async (ev) => {
         const base64Data = ev.target.result; // "data:image/...;base64,...."
-        // (Optional: you could resize/compress here with a canvas before saving.)
         try {
           await db.collection('users').doc(app.user.id).update({ photoData: base64Data });
           const snap = await db.collection('users').doc(app.user.id).get();
@@ -563,8 +533,6 @@ async function updateProfileUI(){
       reader.readAsDataURL(file);
     });
   }
-
-  // Remove profile photo
   const removeBtn = document.getElementById('removePhotoBtn');
   if (removeBtn) {
     removeBtn.addEventListener('click', async () => {
@@ -597,7 +565,6 @@ signinForm.addEventListener('submit', async e=>{
     const userDoc = await userRef.get();
     const school = document.getElementById('studentSchool').value;
 if(!school){ toast('Select a school'); return; }
-
 if(!userDoc.exists){
   await userRef.set({name, grade, school, rep:0});
 } else {
@@ -606,10 +573,8 @@ if(!userDoc.exists){
   if(!data.grade) await userRef.update({grade});
   if(!data.school) await userRef.update({school});
 }
-
     const snap = await userRef.get();
    app.user = { id, ...snap.data(), school };
-
     updateProfileUI();
     renderTabs('tabFeed');
     signinDialog.close();
@@ -625,8 +590,7 @@ btnSignOut.addEventListener('click', ()=>{
   toast('Signed out');
   if(!signinDialog.open) signinDialog.showModal();
 });
-
-/********* TABS NAV *********/
+/Tab Nav/
 document.querySelectorAll('.bottom-tabs button').forEach(btn=>{btn.addEventListener('click',()=>renderTabs(btn.dataset.tab));});
 function renderTabs(tab){
   document.querySelectorAll('.tabContent').forEach(t=>t.style.display='none');
@@ -640,7 +604,7 @@ function renderTabs(tab){
   if(tab==='tabManual') renderManual();
 }
 
-/********* CREATE TASK *********/
+/NEW tk/
 function renderCreate(){
   const container=document.getElementById('tabCreate');
   container.innerHTML=`<div class="card">
@@ -683,7 +647,6 @@ function renderCreate(){
 </div>
 </form>
 </div>`;
-
 document.getElementById('postForm').addEventListener('submit', async e => {
   e.preventDefault(); 
   requireAuth(); if(!app.user) return;
@@ -700,29 +663,20 @@ document.getElementById('postForm').addEventListener('submit', async e => {
   }
 const dueDateInput = document.getElementById('dueDate').value;
 if(!dueDateInput){ toast('Please select a due date'); return; }
-
-// Parse as Central Time
 const [year, month, day] = dueDateInput.split('-').map(Number);
 const dueDateObj = todayCentral();
 dueDateObj.setFullYear(year, month-1, day);
-dueDateObj.setHours(0,0,0,0); // midnight Central
-
+dueDateObj.setHours(0,0,0,0); 
 const today = todayCentral();
 if(dueDateObj.getTime() < today.getTime()){
   toast('Due date cannot be in the past!');
   return;
 }
-
-
-
-
 const post = {
   authorId: app.user.id,
   authorName: app.user.name,
   school: app.user.school,
   authorPhotoData: app.user.photoData || null,
-
-
   type: document.getElementById('postType').value,
   title: document.getElementById('title').value.trim(),
   subject: document.getElementById('subject').value.trim(),
@@ -735,19 +689,13 @@ const post = {
   takerId: null,
   authorConfirmed: false,
   takerConfirmed: false,
-  // Option B: move withdrawn up a bit (my preference)
 withdrawn: false,
 createdAt: firebase.firestore.FieldValue.serverTimestamp(),
 
 };
-// Check for inappropriate content
-// Check for inappropriate content and deduct reputation if needed
 if(!(await validatePostContent(post))){
-  return; // Post blocked and rep deducted
+  return;
 }
-
-
-
   try {
     await db.collection('posts').add(post);
     toast('Task posted!');
@@ -756,17 +704,12 @@ if(!(await validatePostContent(post))){
 });
 }
 
-/********* FEED TAB *********/
+/*FT*/
 function renderFeed() {
   const container = document.getElementById('tabFeed'); 
   container.innerHTML = '';
-
-  // Only show tasks that are not taken or withdrawn
 let userSchool = app.user?.school || '';
 let tasks = app.posts.filter(p => !p.takerId && !p.withdrawn && p.school === userSchool);
-
-
-
   if (!tasks.length) {
     container.innerHTML = '<div class="empty">No tasks yet</div>'; 
     return; 
@@ -776,7 +719,7 @@ let tasks = app.posts.filter(p => !p.takerId && !p.withdrawn && p.school === use
     const card = document.createElement('div'); 
     card.className = 'card';
 
-    // Calculate status
+    // Calc
     const dueDate = new Date(p.dueDate);
     let today = todayCentral();
 let due = new Date(p.dueDate + "T00:00:00");
@@ -789,12 +732,9 @@ else status = 'Pending';
 
     const likesCount = Array.isArray(p.likes) ? p.likes.length : 0;
     const comments = Array.isArray(p.comments) ? p.comments : [];
-
-    // Ensure we are watching this author's reputation
     watchUserRep(p.authorId);
 
     const repDisplay = typeof app.userReps[p.authorId] !== 'undefined' ? `(${app.userReps[p.authorId]} rep)` : '(0 rep)';
-
     card.innerHTML = `
       <div class="post-head">
         <div><strong>${escapeHtml(p.title)}</strong> (${escapeHtml(p.type)})</div>
@@ -805,8 +745,6 @@ else status = 'Pending';
   ${p.authorPhotoData ? `<img class="avatar-md" src="${escapeHtml(p.authorPhotoData)}" alt="${escapeHtml(p.authorName)}">` : ``}
   <span>Author: ${escapeHtml(p.authorName)} <span data-author-rep="${p.authorId}">${repDisplay}</span> | Due: ${p.dueDate}</span>
 </div>
-
-
       <div>${escapeHtml(p.desc)}</div>
       ${p.imageData ? `
   <div class="post-image-container">
@@ -832,7 +770,7 @@ else status = 'Pending';
 
     container.appendChild(card);
 
-    // Attach like button listener
+    // Attach like button
     const likeBtn = document.getElementById(`like-btn-${p.id}`);
     likeBtn.addEventListener('click', async () => {
       await toggleLike(p.id);
@@ -844,50 +782,31 @@ else status = 'Pending';
 
 
 
-/********* PENDING TAB *********/
+/* pending */
 function renderPending() {
   requireAuth();
   const container = document.getElementById('tabPending'); 
   container.innerHTML = '';
-
 let tasks = app.posts.filter(p => 
   (p.takerId === app.user.id || p.authorId === app.user.id) &&
-  !(p.deletedBy || []).includes(app.user.id) // hide removed completed tasks
+  !(p.deletedBy || []).includes(app.user.id) 
 );
-
   if (!tasks.length) { container.innerHTML = '<div class="empty">No pending tasks</div>'; return; }
-
   tasks.forEach(p => {
     const card = document.createElement('div'); 
     card.className = 'card';
     const due = new Date(p.dueDate); 
     const status = (p.completed ? 'Completed' : new Date() > due ? 'Overdue' : 'Pending');
-
     let actionsHtml = '';
 
-  
-
-
-    // Delete / withdraw / repost
-   // Delete buttons logic
-// Delete / withdraw / repost (final behavior)
-// - Author can delete anytime (incomplete or completed).
-// - Repost shows ONLY after a taker has withdrawn (withdrawn===true) and there is no taker.
-// - Completed tasks: either side can "Remove" (soft-hide); doc deletes when both have removed.
-
 if (p.completed) {
-  // Completed -> per-user removal
   if (app.user.id === p.authorId || app.user.id === p.takerId) {
     actionsHtml += `<button class="btn danger" onclick="deleteTask('${p.id}')">Remove</button>`;
   }
 } else {
-  // INCOMPLETE
-  // Author controls
   if (app.user.id === p.authorId) {
-    // Author can delete even if there is an active taker (your deleteTask() already warns)
     actionsHtml += `<button class="btn danger" onclick="deleteTask('${p.id}')">Delete</button>`;
 
-    // Show Repost ONLY after taker withdrew (not for brand-new never-taken tasks)
     if (p.withdrawn && !p.takerId) {
       actionsHtml += `<button class="btn ghost" onclick="repostTask('${p.id}')">Repost</button>`;
     } else if (p.takerId) {
@@ -895,25 +814,21 @@ if (p.completed) {
     }
   }
 
-  // Taker controls
   const isAuthor = app.user.id === p.authorId;
 const isTaker = app.user.id === p.takerId;
 
-// Taker controls
+// Taker control
 if (isTaker) {
   actionsHtml += `<button class="btn primary" onclick="confirmTask('${p.id}','taker')">Confirm completion</button>`;
   actionsHtml += `<button class="btn ghost" onclick="withdrawTask('${p.id}')">Withdraw</button>`;
 }
 
-// Author confirm button — show only to the author
 if (isAuthor && p.takerId && !p.completed) {
   actionsHtml += `<button class="btn primary" onclick="confirmTask('${p.id}','author')">Confirm completion</button>`;
 }
 
 
 }
-
-
 
     card.innerHTML = `
       <div class="post-head"><strong>${escapeHtml(p.title)}</strong> <span class="badge">${status}</span></div>
@@ -926,10 +841,6 @@ if (isAuthor && p.takerId && !p.completed) {
 }
 
 
-
-/********* FEEDBACK TAB *********/
-/********* FEEDBACK TAB *********/
-/********* FEEDBACK TAB (Simplified) *********/
 function renderFeedback() {
   requireAuth();
   const container = document.getElementById('tabFeedback'); 
@@ -938,7 +849,7 @@ function renderFeedback() {
   const tasks = app.posts.filter(p => 
   p.completed &&
   (p.authorId === app.user.id || p.takerId === app.user.id) &&
-  !(p.deletedBy || []).includes(app.user.id) // hide removed tasks
+  !(p.deletedBy || []).includes(app.user.id) 
 );
 
 
@@ -962,7 +873,7 @@ function renderFeedback() {
     let actionsHtml = '';
     if(!yourFeedback) actionsHtml += '<button class="btn primary">Leave Feedback</button>';
 
-    // If both users gave feedback, allow removing task from view
+   
     if(yourFeedback && otherFeedback){
       actionsHtml += `<button class="btn danger" onclick="deleteTask('${p.id}')">Remove</button>`;
     }
@@ -1039,7 +950,6 @@ async function hideFeedback(postId){
   } catch(e){ console.error(e); toast('Could not delete feedback'); }
 }
 
-/********* TASK ACTIONS *********/
 async function takeTask(postId){
   requireAuth(); if(!app.user) return;
   const postRef = db.collection('posts').doc(postId);
@@ -1063,7 +973,6 @@ async function confirmTask(postId, role) {
   if (post.authorConfirmed && post.takerConfirmed) {
     post.completed = true;
 
-    // Reputation logic only for taker
     const due = new Date(post.dueDate);
     const nowDate = new Date();
     const userRef = db.collection('users').doc(post.takerId);
@@ -1089,10 +998,9 @@ async function deleteTask(postId){
   const isAuthor = app.user.id === post.authorId;
   const isTaker = app.user.id === post.takerId;
 
-  // WARN AUTHOR IF SOMEONE HAS SIGNED UP
   if(!post.completed && post.takerId && isAuthor){
     if(!confirm("Warning: a user has already signed up for this task. Deleting it will remove it from their Pending tab. Proceed?")) {
-      return; // Stop deletion if they cancel
+      return;
     }
   }
 
@@ -1139,8 +1047,6 @@ async function withdrawTask(postId){
     completed: false,
     updatedAt: firebase.firestore.FieldValue.serverTimestamp()
   });
-
-  // Update local cache for snappy UI
   app.posts = app.posts.map(p =>
     p.id === postId
       ? { ...p, withdrawn:true, takerId:null, authorConfirmed:false, takerConfirmed:false, completed:false }
@@ -1159,27 +1065,17 @@ async function withdrawTask(postId){
 async function repostTask(postId) {
   const newDate = prompt("Enter new due date (YYYY-MM-DD):");
   if (!newDate) return;
-  // Get the original post from local app.posts
 const originalPost = app.posts.find(p => p.id === postId);
-if (!originalPost) return; // safety check
-
-// Block repost if content contains banned words
-// Block repost if content contains banned words and deduct rep
+if (!originalPost) return; 
 if(!(await validatePostContent(originalPost))){
-  return; // Repost blocked and rep deducted
+  return; 
 }
 
-
-
-
-  // Use Central Time helper
 function todayCentral() {
   const now = new Date();
-  // Central Time is UTC-5 or UTC-6 depending on DST
-  // We'll assume standard Central time (UTC-5) for simplicity
-  const offset = -5; // hours
+  const offset = -5; 
   const central = new Date(now.getTime() + (now.getTimezoneOffset()/60 + offset)*3600*1000);
-  central.setHours(0,0,0,0); // midnight
+  central.setHours(0,0,0,0); 
   return central;
 }
 
@@ -1188,8 +1084,6 @@ if(dueDateObj.getTime() < todayCentral().getTime()){
   toast('Due date cannot be in the past!');
   return;
 }
-
-
   try {
     const ref = db.collection('posts').doc(postId);
     await ref.update({
@@ -1201,8 +1095,6 @@ if(dueDateObj.getTime() < todayCentral().getTime()){
       completed: false,
       createdAt: firebase.firestore.FieldValue.serverTimestamp()
     });
-
-    // Update local app.posts immediately
     app.posts = app.posts.map(p => p.id === postId 
       ? {...p, withdrawn:false, takerId:null, completed:false, dueDate:newDate, authorConfirmed:false, takerConfirmed:false}
       : p
@@ -1216,13 +1108,6 @@ if(dueDateObj.getTime() < todayCentral().getTime()){
     toast('Could not repost task');
   }
 }
-
-
-
-
-
-
-/********* MANUAL TAB *********/
 function renderManual(){
   const container = document.getElementById('tabManual');
   container.innerHTML = `
@@ -1253,25 +1138,22 @@ function renderManual(){
       </ol>
     </div>`;
 }
-
-/********* FIRESTORE LISTENER *********/
 function startPostsListener() {
   db.collection('posts').orderBy('createdAt', 'desc').onSnapshot(snap => {
     app.posts = [];
     snap.forEach(doc => {
       app.posts.push({ ...doc.data(), id: doc.id });
     });
-    renderFeed();      // Refresh the feed so likes/comments appear
-    renderPending();   // Refresh pending tasks
-    renderFeedback();  // Refresh feedback tab
+    renderFeed();     
+    renderPending();   
+    renderFeedback(); 
   });
 }
 
-
-/********* INIT *********/
 document.getElementById('funFact').textContent = funFactOfTheDay();
 if(!app.user){ if(!signinDialog.open) signinDialog.showModal(); }
 renderTabs('tabFeed');
 </script>
 </body>
+
 </html>
