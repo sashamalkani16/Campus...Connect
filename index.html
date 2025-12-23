@@ -575,113 +575,115 @@ async function updateProfileUI(){
       <strong>School:</strong>
       <select id="editSchool">
      <select id="editSchool">
-  <option value="Austin HS" ${userData.school === 'Austin HS' ? 'selected' : ''}>Austin High School (TX)</option>
-  <option value="Alief Elsik" ${userData.school === 'Alief Elsik' ? 'selected' : ''}>Alief Elsik High School (TX)</option>
-  <option value="Alief Hastings" ${userData.school === 'Alief Hastings' ? 'selected' : ''}>Alief Hastings High School (TX)</option>
-  <option value="Alief Taylor" ${userData.school === 'Alief Taylor' ? 'selected' : ''}>Alief Taylor High School (TX)</option>
-  <option value="Alvin HS" ${userData.school === 'Alvin HS' ? 'selected' : ''}>Alvin High School (TX)</option>
-  <option value="Bellaire HS" ${userData.school === 'Bellaire HS' ? 'selected' : ''}>Bellaire High School (TX)</option>
-  <option value="Bush HS" ${userData.school === 'Bush HS' ? 'selected' : ''}>Bush High School (TX)</option>
-  <option value="Brazoswood HS" ${userData.school === 'Brazoswood HS' ? 'selected' : ''}>Brazoswood High School (TX)</option>
-  <option value="Bronx Science" ${userData.school === 'Bronx Science' ? 'selected' : ''}>Bronx High School of Science (NY)</option>
-  <option value="Bridgeland HS" ${userData.school === 'Bridgeland HS' ? 'selected' : ''}>Bridgeland High School (TX)</option>
-  <option value="Clements HS" ${userData.school === 'Clements HS' ? 'selected' : ''}>Clements High School (TX)</option>
-  <option value="Cinco Ranch" ${userData.school === 'Cinco Ranch' ? 'selected' : ''}>Cinco Ranch High School (TX)</option>
-  <option value="Cy-Fair HS" ${userData.school === 'Cy-Fair HS' ? 'selected' : ''}>Cy-Fair High School (TX)</option>
-  <option value="Cy-Falls HS" ${userData.school === 'Cy-Falls HS' ? 'selected' : ''}>Cy-Falls High School (TX)</option>
-  <option value="Cy-Ridge HS" ${userData.school === 'Cy-Ridge HS' ? 'selected' : ''}>Cy-Ridge High School (TX)</option>
-  <option value="Cy-Springs HS" ${userData.school === 'Cy-Springs HS' ? 'selected' : ''}>Cy-Springs High School (TX)</option>
-  <option value="Dulles HS" ${userData.school === 'Dulles HS' ? 'selected' : ''}>Dulles High School (TX)</option>
-  <option value="Dawson HS" ${userData.school === 'Dawson HS' ? 'selected' : ''}>Dawson High School (TX)</option>
-  <option value="Deer Park" ${userData.school === 'Deer Park' ? 'selected' : ''}>Deer Park High School (TX)</option>
-  <option value="Dickinson HS" ${userData.school === 'Dickinson HS' ? 'selected' : ''}>Dickinson High School (TX)</option>
-  <option value="DeBakey High" ${userData.school === 'DeBakey High' ? 'selected' : ''}>DeBakey High School for Health Professions (TX)</option>
-  <option value="Elkins HS" ${userData.school === 'Elkins HS' ? 'selected' : ''}>Elkins High School (TX)</option>
-  <option value="Elsik HS" ${userData.school === 'Elsik HS' ? 'selected' : ''}>Elsik High School (TX)</option>
-  <option value="East Ridge" ${userData.school === 'East Ridge' ? 'selected' : ''}>East Ridge High School (FL)</option>
-  <option value="Eisenhower HS" ${userData.school === 'Eisenhower HS' ? 'selected' : ''}>Eisenhower High School (TX)</option>
-  <option value="Edgewood HS" ${userData.school === 'Edgewood HS' ? 'selected' : ''}>Edgewood High School (CA)</option>
-  <option value="Foster HS" ${userData.school === 'Foster HS' ? 'selected' : ''}>Foster High School (TX)</option>
-  <option value="Fulshear HS" ${userData.school === 'Fulshear HS' ? 'selected' : ''}>Fulshear High School (TX)</option>
-  <option value="Friendswood HS" ${userData.school === 'Friendswood HS' ? 'selected' : ''}>Friendswood High School (TX)</option>
-  <option value="Fort Bend Academy" ${userData.school === 'Fort Bend Academy' ? 'selected' : ''}>Fort Bend Academy for GL (TX)</option>
-  <option value="Franklin HS" ${userData.school === 'Franklin HS' ? 'selected' : ''}>Franklin High School (TX)</option>
-  <option value="George Ranch" ${userData.school === 'George Ranch' ? 'selected' : ''}>George Ranch High School (TX)</option>
-  <option value="Galena Park" ${userData.school === 'Galena Park' ? 'selected' : ''}>Galena Park High School (TX)</option>
-  <option value="Glenda Dawson" ${userData.school === 'Glenda Dawson' ? 'selected' : ''}>Glenda Dawson High School (TX)</option>
-  <option value="Garland HS" ${userData.school === 'Garland HS' ? 'selected' : ''}>Garland High School (TX)</option>
-  <option value="Gunn HS" ${userData.school === 'Gunn HS' ? 'selected' : ''}>Henry M. Gunn High School (CA)</option>
-  <option value="Hightower HS" ${userData.school === 'Hightower HS' ? 'selected' : ''}>Hightower High School (TX)</option>
-  <option value="Humble HS" ${userData.school === 'Humble HS' ? 'selected' : ''}>Humble High School (TX)</option>
-  <option value="Hunter College HS" ${userData.school === 'Hunter College HS' ? 'selected' : ''}>Hunter College High School (NY)</option>
-  <option value="Harvard-Westlake" ${userData.school === 'Harvard-Westlake' ? 'selected' : ''}>Harvard-Westlake School (CA)</option>
-  <option value="Heights HS" ${userData.school === 'Heights HS' ? 'selected' : ''}>Heights High School (TX)</option>
-  <option value="Irvine HS" ${userData.school === 'Irvine HS' ? 'selected' : ''}>Irvine High School (CA)</option>
-  <option value="Independence HS" ${userData.school === 'Independence HS' ? 'selected' : ''}>Independence High School (TX)</option>
-  <option value="Iowa City High" ${userData.school === 'Iowa City High' ? 'selected' : ''}>Iowa City High School (IA)</option>
-  <option value="Irving HS" ${userData.school === 'Irving HS' ? 'selected' : ''}>Irving High School (TX)</option>
-  <option value="Ithaca HS" ${userData.school === 'Ithaca HS' ? 'selected' : ''}>Ithaca High School (NY)</option>
-  <option value="Jordan HS" ${userData.school === 'Jordan HS' ? 'selected' : ''}>Jordan High School (TX)</option>
-  <option value="Jersey Village" ${userData.school === 'Jersey Village' ? 'selected' : ''}>Jersey Village High School (TX)</option>
-  <option value="Judson HS" ${userData.school === 'Judson HS' ? 'selected' : ''}>Judson High School (TX)</option>
-  <option value="Jesuit CP" ${userData.school === 'Jesuit CP' ? 'selected' : ''}>Jesuit College Preparatory (TX)</option>
-  <option value="Jefferson HS" ${userData.school === 'Jefferson HS' ? 'selected' : ''}>Jefferson High School (VA)</option>
-  <option value="Kempner HS" ${userData.school === 'Kempner HS' ? 'selected' : ''}>Kempner High School (TX)</option>
-  <option value="Katy HS" ${userData.school === 'Katy HS' ? 'selected' : ''}>Katy High School (TX)</option>
-  <option value="Kingwood HS" ${userData.school === 'Kingwood HS' ? 'selected' : ''}>Kingwood High School (TX)</option>
-  <option value="Klein HS" ${userData.school === 'Klein HS' ? 'selected' : ''}>Klein High School (TX)</option>
-  <option value="Klein Cain" ${userData.school === 'Klein Cain' ? 'selected' : ''}>Klein Cain High School (TX)</option>
-  <option value="Klein Forest" ${userData.school === 'Klein Forest' ? 'selected' : ''}>Klein Forest High School (TX)</option>
-  <option value="Lamar HS" ${userData.school === 'Lamar HS' ? 'selected' : ''}>Lamar High School (TX)</option>
-  <option value="Langham Creek" ${userData.school === 'Langham Creek' ? 'selected' : ''}>Langham Creek High School (TX)</option>
-  <option value="Lowell HS" ${userData.school === 'Lowell HS' ? 'selected' : ''}>Lowell High School (CA)</option>
-  <option value="Lake Travis" ${userData.school === 'Lake Travis' ? 'selected' : ''}>Lake Travis High School (TX)</option>
-  <option value="Lexington HS" ${userData.school === 'Lexington HS' ? 'selected' : ''}>Lexington High School (MA)</option>
-  <option value="Marshall HS" ${userData.school === 'Marshall HS' ? 'selected' : ''}>Marshall High School (TX)</option>
-  <option value="Memorial HS" ${userData.school === 'Memorial HS' ? 'selected' : ''}>Memorial High School (TX)</option>
-  <option value="Mayde Creek" ${userData.school === 'Mayde Creek' ? 'selected' : ''}>Mayde Creek High School (TX)</option>
-  <option value="Morton Ranch" ${userData.school === 'Morton Ranch' ? 'selected' : ''}>Morton Ranch High School (TX)</option>
-  <option value="Milton HS" ${userData.school === 'Milton HS' ? 'selected' : ''}>Milton High School (GA)</option>
-  <option value="Northside HS" ${userData.school === 'Northside HS' ? 'selected' : ''}>Northside High School (TX)</option>
-  <option value="Needville HS" ${userData.school === 'Needville HS' ? 'selected' : ''}>Needville High School (TX)</option>
-  <option value="New Trier" ${userData.school === 'New Trier' ? 'selected' : ''}>New Trier High School (IL)</option>
-  <option value="North Shore" ${userData.school === 'North Shore' ? 'selected' : ''}>North Shore High School (TX)</option>
-  <option value="Northwest Early" ${userData.school === 'Northwest Early' ? 'selected' : ''}>Northwest Early College HS (TX)</option>
-  <option value="Oak Ridge" ${userData.school === 'Oak Ridge' ? 'selected' : ''}>Oak Ridge High School (TX)</option>
-  <option value="Orangefield HS" ${userData.school === 'Orangefield HS' ? 'selected' : ''}>Orangefield High School (TX)</option>
-  <option value="Oxford Academy" ${userData.school === 'Oxford Academy' ? 'selected' : ''}>Oxford Academy (CA)</option>
-  <option value="O’Connor HS" ${userData.school === 'O’Connor HS' ? 'selected' : ''}>O’Connor High School (TX)</option>
-  <option value="Olathe North" ${userData.school === 'Olathe North' ? 'selected' : ''}>Olathe North High School (KS)</option>
-  <option value="Paetow HS" ${userData.school === 'Paetow HS' ? 'selected' : ''}>Paetow High School (TX)</option>
-  <option value="Pearland HS" ${userData.school === 'Pearland HS' ? 'selected' : ''}>Pearland High School (TX)</option>
-  <option value="Pasadena HS" ${userData.school === 'Pasadena HS' ? 'selected' : ''}>Pasadena High School (TX)</option>
-  <option value="Plano West" ${userData.school === 'Plano West' ? 'selected' : ''}>Plano West Senior High (TX)</option>
-  <option value="Palo Alto HS" ${userData.school === 'Palo Alto HS' ? 'selected' : ''}>Palo Alto High School (CA)</option>
-  <option value="Ridge Point" ${userData.school === 'Ridge Point' ? 'selected' : ''}>Ridge Point High School (TX)</option>
-  <option value="Reagan HS" ${userData.school === 'Reagan HS' ? 'selected' : ''}>Ronald Reagan High School (TX)</option>
-  <option value="Ransom Everglades" ${userData.school === 'Ransom Everglades' ? 'selected' : ''}>Ransom Everglades School (FL)</option>
-  <option value="Richmond Hill" ${userData.school === 'Richmond Hill' ? 'selected' : ''}>Richmond Hill High School (NY)</option>
-  <option value="Round Rock HS" ${userData.school === 'Round Rock HS' ? 'selected' : ''}>Round Rock High School (TX)</option>
-  <option value="Seven Lakes" ${userData.school === 'Seven Lakes' ? 'selected' : ''}>Seven Lakes High School (TX)</option>
-  <option value="Stafford HS" ${userData.school === 'Stafford HS' ? 'selected' : ''}>Stafford High School (TX)</option>
-  <option value="Stuyvesant HS" ${userData.school === 'Stuyvesant HS' ? 'selected' : ''}>Stuyvesant High School (NY)</option>
-  <option value="Stratford HS" ${userData.school === 'Stratford HS' ? 'selected' : ''}>Stratford High School (TX)</option>
-  <option value="Summer Creek" ${userData.school === 'Summer Creek' ? 'selected' : ''}>Summer Creek High School (TX)</option>
-  <option value="St. John’s School" ${userData.school === 'St. John’s School' ? 'selected' : ''}>St. John’s School (TX)</option>
-  <option value="Travis HS" ${userData.school === 'Travis HS' ? 'selected' : ''}>Travis High School (TX)</option>
-  <option value="Taylor HS" ${userData.school === 'Taylor HS' ? 'selected' : ''}>Taylor High School (TX)</option>
-  <option value="Tomball HS" ${userData.school === 'Tomball HS' ? 'selected' : ''}>Tomball High School (TX)</option>
-  <option value="The Woodlands" ${userData.school === 'The Woodlands' ? 'selected' : ''}>The Woodlands High School (TX)</option>
-  <option value="Troy HS" ${userData.school === 'Troy HS' ? 'selected' : ''}>Troy High School (CA)</option>
-  <option value="Vandegrift HS" ${userData.school === 'Vandegrift HS' ? 'selected' : ''}>Vandegrift High School (TX)</option>
-  <option value="Victoria East" ${userData.school === 'Victoria East' ? 'selected' : ''}>Victoria East High School (TX)</option>
-  <option value="Vista Ridge" ${userData.school === 'Vista Ridge' ? 'selected' : ''}>Vista Ridge High School (TX)</option>
-  <option value="Valencia HS" ${userData.school === 'Valencia HS' ? 'selected' : ''}>Valencia High School (CA)</option>
-  <option value="Westside HS" ${userData.school === 'Westside HS' ? 'selected' : ''}>Westside High School (TX)</option>
-  <option value="Willowridge HS" ${userData.school === 'Willowridge HS' ? 'selected' : ''}>Willowridge High School (TX)</option>
-  <option value="West Brook" ${userData.school === 'West Brook' ? 'selected' : ''}>West Brook High School (TX)</option>
-  <option value="Westlake HS" ${userData.school === 'Westlake HS' ? 'selected' : ''}>Westlake High School (TX)</option>
-  <option value="Walt Whitman" ${userData.school === 'Walt Whitman' ? 'selected' : ''}>Walt Whitman High School (MD)</option>
+  
+  
+<option value="Austin HS" ${userData.school === 'Austin HS' ? 'selected' : ''}>Austin High School (TX)</option>
+    <option value="Alief Elsik" ${userData.school === 'Alief Elsik' ? 'selected' : ''}>Alief Elsik High School (TX)</option>
+    <option value="Alief Hastings" ${userData.school === 'Alief Hastings' ? 'selected' : ''}>Alief Hastings High School (TX)</option>
+    <option value="Alief Taylor" ${userData.school === 'Alief Taylor' ? 'selected' : ''}>Alief Taylor High School (TX)</option>
+    <option value="Alvin HS" ${userData.school === 'Alvin HS' ? 'selected' : ''}>Alvin High School (TX)</option>
+    <option value="Bellaire HS" ${userData.school === 'Bellaire HS' ? 'selected' : ''}>Bellaire High School (TX)</option>
+    <option value="Bush HS" ${userData.school === 'Bush HS' ? 'selected' : ''}>Bush High School (TX)</option>
+    <option value="Brazoswood HS" ${userData.school === 'Brazoswood HS' ? 'selected' : ''}>Brazoswood High School (TX)</option>
+    <option value="Bronx Science" ${userData.school === 'Bronx Science' ? 'selected' : ''}>Bronx High School of Science (NY)</option>
+    <option value="Bridgeland HS" ${userData.school === 'Bridgeland HS' ? 'selected' : ''}>Bridgeland High School (TX)</option>
+    <option value="Clements HS" ${userData.school === 'Clements HS' ? 'selected' : ''}>Clements High School (TX)</option>
+    <option value="Cinco Ranch" ${userData.school === 'Cinco Ranch' ? 'selected' : ''}>Cinco Ranch High School (TX)</option>
+    <option value="Cy-Fair HS" ${userData.school === 'Cy-Fair HS' ? 'selected' : ''}>Cy-Fair High School (TX)</option>
+    <option value="Cy-Falls HS" ${userData.school === 'Cy-Falls HS' ? 'selected' : ''}>Cy-Falls High School (TX)</option>
+    <option value="Cy-Ridge HS" ${userData.school === 'Cy-Ridge HS' ? 'selected' : ''}>Cy-Ridge High School (TX)</option>
+    <option value="Cy-Springs HS" ${userData.school === 'Cy-Springs HS' ? 'selected' : ''}>Cy-Springs High School (TX)</option>
+    <option value="Dulles HS" ${userData.school === 'Dulles HS' ? 'selected' : ''}>Dulles High School (TX)</option>
+    <option value="Dawson HS" ${userData.school === 'Dawson HS' ? 'selected' : ''}>Dawson High School (TX)</option>
+    <option value="Deer Park" ${userData.school === 'Deer Park' ? 'selected' : ''}>Deer Park High School (TX)</option>
+    <option value="Dickinson HS" ${userData.school === 'Dickinson HS' ? 'selected' : ''}>Dickinson High School (TX)</option>
+    <option value="DeBakey High" ${userData.school === 'DeBakey High' ? 'selected' : ''}>DeBakey High School for Health Professions (TX)</option>
+    <option value="Elkins HS" ${userData.school === 'Elkins HS' ? 'selected' : ''}>Elkins High School (TX)</option>
+    <option value="Elsik HS" ${userData.school === 'Elsik HS' ? 'selected' : ''}>Elsik High School (TX)</option>
+    <option value="East Ridge" ${userData.school === 'East Ridge' ? 'selected' : ''}>East Ridge High School (FL)</option>
+    <option value="Eisenhower HS" ${userData.school === 'Eisenhower HS' ? 'selected' : ''}>Eisenhower High School (TX)</option>
+    <option value="Edgewood HS" ${userData.school === 'Edgewood HS' ? 'selected' : ''}>Edgewood High School (CA)</option>
+    <option value="Foster HS" ${userData.school === 'Foster HS' ? 'selected' : ''}>Foster High School (TX)</option>
+    <option value="Fulshear HS" ${userData.school === 'Fulshear HS' ? 'selected' : ''}>Fulshear High School (TX)</option>
+    <option value="Friendswood HS" ${userData.school === 'Friendswood HS' ? 'selected' : ''}>Friendswood High School (TX)</option>
+    <option value="Fort Bend Academy" ${userData.school === 'Fort Bend Academy' ? 'selected' : ''}>Fort Bend Academy for GL (TX)</option>
+    <option value="Franklin HS" ${userData.school === 'Franklin HS' ? 'selected' : ''}>Franklin High School (TX)</option>
+    <option value="George Ranch" ${userData.school === 'George Ranch' ? 'selected' : ''}>George Ranch High School (TX)</option>
+    <option value="Galena Park" ${userData.school === 'Galena Park' ? 'selected' : ''}>Galena Park High School (TX)</option>
+    <option value="Glenda Dawson" ${userData.school === 'Glenda Dawson' ? 'selected' : ''}>Glenda Dawson High School (TX)</option>
+    <option value="Garland HS" ${userData.school === 'Garland HS' ? 'selected' : ''}>Garland High School (TX)</option>
+    <option value="Gunn HS" ${userData.school === 'Gunn HS' ? 'selected' : ''}>Henry M. Gunn High School (CA)</option>
+    <option value="Hightower HS" ${userData.school === 'Hightower HS' ? 'selected' : ''}>Hightower High School (TX)</option>
+    <option value="Humble HS" ${userData.school === 'Humble HS' ? 'selected' : ''}>Humble High School (TX)</option>
+    <option value="Hunter College HS" ${userData.school === 'Hunter College HS' ? 'selected' : ''}>Hunter College High School (NY)</option>
+    <option value="Harvard-Westlake" ${userData.school === 'Harvard-Westlake' ? 'selected' : ''}>Harvard-Westlake School (CA)</option>
+    <option value="Heights HS" ${userData.school === 'Heights HS' ? 'selected' : ''}>Heights High School (TX)</option>
+    <option value="Irvine HS" ${userData.school === 'Irvine HS' ? 'selected' : ''}>Irvine High School (CA)</option>
+    <option value="Independence HS" ${userData.school === 'Independence HS' ? 'selected' : ''}>Independence High School (TX)</option>
+    <option value="Iowa City High" ${userData.school === 'Iowa City High' ? 'selected' : ''}>Iowa City High School (IA)</option>
+    <option value="Irving HS" ${userData.school === 'Irving HS' ? 'selected' : ''}>Irving High School (TX)</option>
+    <option value="Ithaca HS" ${userData.school === 'Ithaca HS' ? 'selected' : ''}>Ithaca High School (NY)</option>
+    <option value="Jordan HS" ${userData.school === 'Jordan HS' ? 'selected' : ''}>Jordan High School (TX)</option>
+    <option value="Jersey Village" ${userData.school === 'Jersey Village' ? 'selected' : ''}>Jersey Village High School (TX)</option>
+    <option value="Judson HS" ${userData.school === 'Judson HS' ? 'selected' : ''}>Judson High School (TX)</option>
+    <option value="Jesuit CP" ${userData.school === 'Jesuit CP' ? 'selected' : ''}>Jesuit College Preparatory (TX)</option>
+    <option value="Jefferson HS" ${userData.school === 'Jefferson HS' ? 'selected' : ''}>Jefferson High School (VA)</option>
+    <option value="Kempner HS" ${userData.school === 'Kempner HS' ? 'selected' : ''}>Kempner High School (TX)</option>
+    <option value="Katy HS" ${userData.school === 'Katy HS' ? 'selected' : ''}>Katy High School (TX)</option>
+    <option value="Kingwood HS" ${userData.school === 'Kingwood HS' ? 'selected' : ''}>Kingwood High School (TX)</option>
+    <option value="Klein HS" ${userData.school === 'Klein HS' ? 'selected' : ''}>Klein High School (TX)</option>
+    <option value="Klein Cain" ${userData.school === 'Klein Cain' ? 'selected' : ''}>Klein Cain High School (TX)</option>
+    <option value="Klein Forest" ${userData.school === 'Klein Forest' ? 'selected' : ''}>Klein Forest High School (TX)</option>
+    <option value="Lamar HS" ${userData.school === 'Lamar HS' ? 'selected' : ''}>Lamar High School (TX)</option>
+    <option value="Langham Creek" ${userData.school === 'Langham Creek' ? 'selected' : ''}>Langham Creek High School (TX)</option>
+    <option value="Lowell HS" ${userData.school === 'Lowell HS' ? 'selected' : ''}>Lowell High School (CA)</option>
+    <option value="Lake Travis" ${userData.school === 'Lake Travis' ? 'selected' : ''}>Lake Travis High School (TX)</option>
+    <option value="Lexington HS" ${userData.school === 'Lexington HS' ? 'selected' : ''}>Lexington High School (MA)</option>
+    <option value="Marshall HS" ${userData.school === 'Marshall HS' ? 'selected' : ''}>Marshall High School (TX)</option>
+    <option value="Memorial HS" ${userData.school === 'Memorial HS' ? 'selected' : ''}>Memorial High School (TX)</option>
+    <option value="Mayde Creek" ${userData.school === 'Mayde Creek' ? 'selected' : ''}>Mayde Creek High School (TX)</option>
+    <option value="Morton Ranch" ${userData.school === 'Morton Ranch' ? 'selected' : ''}>Morton Ranch High School (TX)</option>
+    <option value="Milton HS" ${userData.school === 'Milton HS' ? 'selected' : ''}>Milton High School (GA)</option>
+    <option value="Northside HS" ${userData.school === 'Northside HS' ? 'selected' : ''}>Northside High School (TX)</option>
+    <option value="Needville HS" ${userData.school === 'Needville HS' ? 'selected' : ''}>Needville High School (TX)</option>
+    <option value="New Trier" ${userData.school === 'New Trier' ? 'selected' : ''}>New Trier High School (IL)</option>
+    <option value="North Shore" ${userData.school === 'North Shore' ? 'selected' : ''}>North Shore High School (TX)</option>
+    <option value="Northwest Early" ${userData.school === 'Northwest Early' ? 'selected' : ''}>Northwest Early College HS (TX)</option>
+    <option value="Oak Ridge" ${userData.school === 'Oak Ridge' ? 'selected' : ''}>Oak Ridge High School (TX)</option>
+    <option value="Orangefield HS" ${userData.school === 'Orangefield HS' ? 'selected' : ''}>Orangefield High School (TX)</option>
+    <option value="Oxford Academy" ${userData.school === 'Oxford Academy' ? 'selected' : ''}>Oxford Academy (CA)</option>
+    <option value="O’Connor HS" ${userData.school === 'O’Connor HS' ? 'selected' : ''}>O’Connor High School (TX)</option>
+    <option value="Olathe North" ${userData.school === 'Olathe North' ? 'selected' : ''}>Olathe North High School (KS)</option>
+    <option value="Paetow HS" ${userData.school === 'Paetow HS' ? 'selected' : ''}>Paetow High School (TX)</option>
+    <option value="Pearland HS" ${userData.school === 'Pearland HS' ? 'selected' : ''}>Pearland High School (TX)</option>
+    <option value="Pasadena HS" ${userData.school === 'Pasadena HS' ? 'selected' : ''}>Pasadena High School (TX)</option>
+    <option value="Plano West" ${userData.school === 'Plano West' ? 'selected' : ''}>Plano West Senior High (TX)</option>
+    <option value="Palo Alto HS" ${userData.school === 'Palo Alto HS' ? 'selected' : ''}>Palo Alto High School (CA)</option>
+    <option value="Ridge Point" ${userData.school === 'Ridge Point' ? 'selected' : ''}>Ridge Point High School (TX)</option>
+    <option value="Reagan HS" ${userData.school === 'Reagan HS' ? 'selected' : ''}>Ronald Reagan High School (TX)</option>
+    <option value="Ransom Everglades" ${userData.school === 'Ransom Everglades' ? 'selected' : ''}>Ransom Everglades School (FL)</option>
+    <option value="Richmond Hill" ${userData.school === 'Richmond Hill' ? 'selected' : ''}>Richmond Hill High School (NY)</option>
+    <option value="Round Rock HS" ${userData.school === 'Round Rock HS' ? 'selected' : ''}>Round Rock High School (TX)</option>
+    <option value="Seven Lakes" ${userData.school === 'Seven Lakes' ? 'selected' : ''}>Seven Lakes High School (TX)</option>
+    <option value="Stafford HS" ${userData.school === 'Stafford HS' ? 'selected' : ''}>Stafford High School (TX)</option>
+    <option value="Stuyvesant HS" ${userData.school === 'Stuyvesant HS' ? 'selected' : ''}>Stuyvesant High School (NY)</option>
+    <option value="Stratford HS" ${userData.school === 'Stratford HS' ? 'selected' : ''}>Stratford High School (TX)</option>
+    <option value="Summer Creek" ${userData.school === 'Summer Creek' ? 'selected' : ''}>Summer Creek High School (TX)</option>
+    <option value="St. John’s School" ${userData.school === "St. John’s School" ? 'selected' : ''}>St. John’s School (TX)</option>
+    <option value="Travis HS" ${userData.school === 'Travis HS' ? 'selected' : ''}>Travis High School (TX)</option>
+    <option value="Taylor HS" ${userData.school === 'Taylor HS' ? 'selected' : ''}>Taylor High School (TX)</option>
+    <option value="Tomball HS" ${userData.school === 'Tomball HS' ? 'selected' : ''}>Tomball High School (TX)</option>
+    <option value="The Woodlands" ${userData.school === 'The Woodlands' ? 'selected' : ''}>The Woodlands High School (TX)</option>
+    <option value="Troy HS" ${userData.school === 'Troy HS' ? 'selected' : ''}>Troy High School (CA)</option>
+    <option value="Vandegrift HS" ${userData.school === 'Vandegrift HS' ? 'selected' : ''}>Vandegrift High School (TX)</option>
+    <option value="Victoria East" ${userData.school === 'Victoria East' ? 'selected' : ''}>Victoria East High School (TX)</option>
+    <option value="Vista Ridge" ${userData.school === 'Vista Ridge' ? 'selected' : ''}>Vista Ridge High School (TX)</option>
+    <option value="Valencia HS" ${userData.school === 'Valencia HS' ? 'selected' : ''}>Valencia High School (CA)</option>
+    <option value="Westside HS" ${userData.school === 'Westside HS' ? 'selected' : ''}>Westside High School (TX)</option>
+    <option value="Willowridge HS" ${userData.school === 'Willowridge HS' ? 'selected' : ''}>Willowridge High School (TX)</option>
+    <option value="West Brook" ${userData.school === 'West Brook' ? 'selected' : ''}>West Brook High School (TX)</option>
+    <option value="Westlake HS" ${userData.school === 'Westlake HS' ? 'selected' : ''}>Westlake High School (TX)</option>
+    <option value="Walt Whitman" ${userData.school === 'Walt Whitman' ? 'selected' : ''}>Walt Whitman High School (MD)</option>
 </select>
     </div>
 
@@ -1366,6 +1368,7 @@ renderTabs('tabFeed');
 </body>
 
 </html>
+
 
 
 
