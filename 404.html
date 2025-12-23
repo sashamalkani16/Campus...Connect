@@ -193,12 +193,43 @@ label{font-size:13px;color:var(--text-dim);}
 </header>
 
 <!-- TABS -->
-<div id="tabFeed" class="tabContent"></div>
-<div id="tabCreate" class="tabContent" style="display:none"></div>
-<div id="tabPending" class="tabContent" style="display:none"></div>
-<div id="tabManual" class="tabContent" style="display:none"></div>
-<div id="tabProfile" class="tabContent" style="display:none"></div>
-<div id="tabFeedback" class="tabContent" style="display:none"></div>
+<div id="tabFeed" class="tabContent">
+   <div id="seo-preview">
+      <h2>Campus Connect Community Feed</h2>
+      <p>Loading the latest campus updates and student tasks...</p>
+   </div>
+   <div id="postsContainer"></div>
+</div>
+<div id="tabCreate" class="tabContent" style="display:none">
+   <div id="seo-preview-create">
+      <h2>Create a New Campus Task</h2>
+      <p>Need to borrow an item? Get help for math class? Need any favor or simply just want to offer help? connect with other students in your campus here.</p>
+   </div>
+</div>
+<div id="tabPending" class="tabContent" style="display:none">
+   <div id="seo-preview-pending">
+      <h2>Your Pending Campus Tasks</h2>
+      <p>Track the status of your current taken tasks and created tasks.</p>
+   </div>
+</div>
+<div id="tabManual" class="tabContent" style="display:none">
+   <div id="seo-preview-manual">
+      <h2>Campus Connect User Manual</h2>
+      <p>New to the community? Learn how to use Campus Connect to borrow items, trade favors, and help your fellow students. Follow our simple guide to get started with posting and responding to campus tasks.</p>
+   </div>
+</div>
+<div id="tabProfile" class="tabContent" style="display:none">
+   <div id="seo-preview-profile">
+      <h2>Your Campus Connect Profile</h2>
+      <p>View your student profile, change your grade,school, profile picture, and even name!</p>
+   </div>
+</div>
+<div id="tabFeedback" class="tabContent" style="display:none">
+   <div id="seo-preview-feedback">
+      <h2>Submit Feedback</h2>
+      <p>Leave a kind though and review!</p>
+   </div>
+</div>
 
 <div class="bottom-tabs">
   <button class="active" data-tab="tabFeed">Feed</button>
@@ -1368,6 +1399,22 @@ renderTabs('tabFeed');
 </body>
 
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
