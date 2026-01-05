@@ -1417,12 +1417,15 @@ document.getElementById('funFact').textContent = funFactOfTheDay();
 if(!app.user){ if(!signinDialog.open) signinDialog.showModal(); }
 renderTabs('tabFeed');
 </script>
-  <footer style="text-align: center; padding: 20px; font-size: 12px; opacity: 0.6;">
-  <a href="legal.html">Terms of Use & Privacy Policy</a>
+  <footer style="position: fixed; bottom: 10px; left: 0; width: 100%; text-align: center; z-index: 1000;">
+  <a href="legal.html" style="color: rgba(255,255,255,0.5); text-decoration: none; font-size: 10px; font-family: sans-serif;">
+    Terms of Use & Privacy Policy
+  </a>
 </footer>
 </body>
 
 </html>
+
 
 
 
