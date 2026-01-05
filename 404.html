@@ -8,6 +8,18 @@
 <title>Campus Connect App | Exchange | Trade | Build a Community </title>
 <meta name="description" content="Campus Connect is a platform for students to borrow items, get help, and trade favors with classmates. Safe, easy, and free!" />
 <meta name="keywords" content="Campus Connect, student tasks, borrow items, help, favors, school community, campus connect, campus Connect, Campus connect, exchange, Exchange app, exchange app" />
+  <link rel="manifest" href="manifest.json">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta name="apple-mobile-web-app-title" content="Campus Connect">
+<link rel="apple-touch-icon" href="46a0df59-99cf-4f6e-a662-2e0b6caf9e78.png">
+
+<script>
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('sw.js');
+  }
+</script>
 <style>
 :root{
   --bg:#0f172a; 
@@ -1405,9 +1417,13 @@ document.getElementById('funFact').textContent = funFactOfTheDay();
 if(!app.user){ if(!signinDialog.open) signinDialog.showModal(); }
 renderTabs('tabFeed');
 </script>
+  <footer style="text-align: center; padding: 20px; font-size: 12px; opacity: 0.6;">
+  <a href="legal.html">Terms of Use & Privacy Policy</a>
+</footer>
 </body>
 
 </html>
+
 
 
 
